@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "374163023134",
+    "firebase_url": "https://blog-8823b.firebaseio.com",
+    "project_id": "blog-8823b",
+    "storage_bucket": "blog-8823b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374163023134:android:8183ffc677012e2ab1550f",
+        "android_client_info": {
+          "package_name": "mdhv.com.blog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374163023134-9acgnreod4fbm81t1lrr0i1ots2l61b7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mdhv.com.blog",
+            "certificate_hash": "e359049d82079ed130eec247feb2156d1319e787"
+          }
+        },
+        {
+          "client_id": "374163023134-67abje3fodleh4n1n52ff58ppeeu4lmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXblCMN3EWcbAb7h3q8n2h97DqKGiMMcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374163023134-67abje3fodleh4n1n52ff58ppeeu4lmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

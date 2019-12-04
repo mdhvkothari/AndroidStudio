@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "876205333315",
+    "firebase_url": "https://pgdekhlo-194e4.firebaseio.com",
+    "project_id": "pgdekhlo-194e4",
+    "storage_bucket": "pgdekhlo-194e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876205333315:android:60aa3923598a00f7",
+        "android_client_info": {
+          "package_name": "com.mdhv.list_view"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876205333315-tmiqhpiid5740fdd5m1nthdiq4q4ho3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpeP8n0gcc3jyjSN6jUqR9Ckd2HFmN6WQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876205333315-tmiqhpiid5740fdd5m1nthdiq4q4ho3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
