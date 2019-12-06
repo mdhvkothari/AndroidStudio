@@ -1,3 +1,4 @@
+import 'package:firebase/constant.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,6 +47,7 @@ class _RegisterState extends State<Register> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  decoration: styleTextBox.copyWith(hintText: 'Email'),
                   validator: (val) => val.isEmpty ? "Enter am Email" : null,
                   onChanged: (val) {
                     setState(() {
@@ -57,6 +59,7 @@ class _RegisterState extends State<Register> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  decoration: styleTextBox.copyWith(hintText: 'Password'),
                   validator: (val) =>
                       val.length < 6 ? "Password should be +6 in length" : null,
                   obscureText: true,

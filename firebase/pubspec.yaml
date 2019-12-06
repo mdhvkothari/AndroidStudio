@@ -27,6 +27,7 @@ dependencies:
   permission_handler:
   firebase_auth:
   provider:
+  flutter_spinkit: "^4.1.0"
 
 dev_dependencies:
   flutter_test:

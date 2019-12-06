@@ -1,3 +1,5 @@
+import 'package:firebase/constant.dart';
+import 'package:firebase/loading.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +19,11 @@ class _SingInState extends State<SingIn> {
   String email = '';
   String password = '';
   String error = '';
+  bool spin = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return spin ? Loading(): Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -45,6 +48,8 @@ class _SingInState extends State<SingIn> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  decoration:
+                      styleTextBox.copyWith(hintText: 'Enter your Email'),
                   validator: (val) => val.isEmpty ? "Enter an Email" : null,
                   onChanged: (val) {
                     setState(() {
@@ -56,6 +61,8 @@ class _SingInState extends State<SingIn> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  decoration:
+                      styleTextBox.copyWith(hintText: 'Enter your Password'),
                   obscureText: true,
                   validator: (val) =>
                       val.length < 6 ? "Enter a password 6+ chars long" : null,
@@ -74,12 +81,14 @@ class _SingInState extends State<SingIn> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
+                      setState(() => spin = true);
                       dynamic result = await _auth.signInWithEmailAndPassword(
                           email, password);
                       if (result == null) {
-                        setState(
-                          () => error = "COULD NOT SIGNIN WITH THOSE CREDETALS",
-                        );
+                        setState(() {
+                          error = "COULD NOT SIGNIN WITH THOSE CREDETALS";
+                          spin = false;
+                        });
                       }
                     }
                   },
