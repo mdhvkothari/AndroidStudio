@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase/models/brew_model.dart';
 import 'package:firebase/screens/home/brew_list.dart';
+import 'package:firebase/screens/home/settings_form.dart';
 import 'package:firebase/services/auth.dart';
 import 'package:firebase/services/database.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+    void _showSettingPanel(){
+      showModalBottomSheet(context: context, builder:(context){
+          return Container(
+            child: SettingsForm(),
+          ) ;
+      });
+    }
+
     return StreamProvider<List<Brew>>.value(
       value: Database().brews,
       child: Scaffold(
@@ -31,6 +40,11 @@ class _HomeState extends State<Home> {
                 },
                 icon: Icon(Icons.person),
                 label: Text("logout")),
+            FlatButton.icon(
+              icon: Icon(Icons.settings),
+              label: Text('Settings'),
+              onPressed: () => _showSettingPanel(),
+            )
           ],
         ),
         body: BrewList(),
