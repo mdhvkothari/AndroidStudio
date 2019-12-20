@@ -34,16 +34,28 @@ class _SettingsFormState extends State<SettingsForm> {
             validator: (val) => val.isEmpty ? 'Please enter a name' : null,
             onChanged: (val) => setState(() => _currentName = val),
           ),
-          SizedBox(height: 20.0,),
+          SizedBox(
+            height: 20.0,
+          ),
           DropdownButtonFormField(
             value: _currentSugars ?? '0',
-            items: sugars.map((sugar){
+            items: sugars.map((sugar) {
               return DropdownMenuItem(
                 value: sugar,
                 child: Text('$sugar sugars'),
               );
             }).toList(),
-            onChanged: (val)=> setState(()=> _currentSugars =val),
+            onChanged: (val) => setState(() => _currentSugars = val),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Slider(
+            value: (_currentStrength ?? 100).toDouble(),
+            min: 100.0,
+            max: 900.0,
+            divisions: 8,
+            onChanged: (val) => setState(() => _currentStrength = val.round()),
           ),
           RaisedButton(
             color: Colors.pink,
@@ -51,7 +63,7 @@ class _SettingsFormState extends State<SettingsForm> {
               "Update",
               style: TextStyle(color: Colors.white),
             ),
-            onPressed: ()async{
+            onPressed: () async {
               print(_currentName);
               print(_currentSugars);
               print(_currentStrength);
