@@ -10,8 +10,8 @@ class Database{
 
   Future updateUserData(String sugars,String name,int strength) async{
     return await brewCollection.document(uid).setData({
-      'sugars': sugars,
       'name': name,
+      'sugars': sugars,
       'strength':strength,
     });
   }

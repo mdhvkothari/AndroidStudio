@@ -5,6 +5,7 @@ class BrewTitle extends StatelessWidget {
   final Brew brew;
   BrewTitle({this.brew});
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,7 +18,7 @@ class BrewTitle extends StatelessWidget {
             backgroundColor: Colors.brown[brew.strength],
           ),
           title: Text(brew.name),
-          subtitle: Text('Take${brew.sugars} sugar(s)'),
+          subtitle: Text('Take: ${brew.sugars} sugar(s)'),
         ),
       ),
     );
