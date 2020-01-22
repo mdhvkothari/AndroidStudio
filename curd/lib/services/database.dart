@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curd/model/saleModel.dart';
 
 class DatabaseService {
   final String uid;
@@ -12,7 +13,7 @@ class DatabaseService {
 
   //updating data
   Future updateSaleData(String name, int billNo, int amount, String comment,
-      List credit, String date) async {
+      List credit, String billDate, List dateOfCredit) async {
     return await saleCollection.document(uid).setData({
       'sale': [
         {
@@ -21,14 +22,15 @@ class DatabaseService {
           'amount': amount,
           'comment': comment,
           'credit': credit,
-          'date': date
+          'Bill date': billDate,
+          'Date of credit': dateOfCredit,
         }
       ]
     });
   }
 
   Future updateTaxData(String name, int billNo, int amount, String comment,
-      int chequeNo, int credit, String date) async {
+      int chequeNo, int credit, String dateOfCheque , String date) async {
     return await taxCollection.document(uid).setData({
       'tax': [
         {
@@ -39,8 +41,36 @@ class DatabaseService {
           'chequeNo': chequeNo,
           'credit': credit,
           'date': date,
+          'dateOfCheque': dateOfCheque,
         }
       ]
     });
   }
+
+  //sale list from snapshot
+  List<SaleData> _saleDataFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((data){
+       SaleData(
+         name:data.data["name"] ?? 'name',
+         billNumber: data.data['bill_number'] ?? 0,
+         comment: data.data['comment'] ?? 'comment',
+         dateOfBill: data.data['Bill date'] ?? 'dateOfBill',
+         credit: data.data['credit'],
+         dateOfCredit: data.data['Date of credit'],
+       );
+    }).toList();
+  }
+
+
+
+  //stream of sale documents
+  Stream<List<SaleData>> get sale{
+    return saleCollection.snapshots().map(_saleDataFromSnapshot);
+  }
+  //stream of tax documents
+  Stream<QuerySnapshot> get tax{
+    return taxCollection.snapshots();
+  }
+
+
 }

@@ -24,9 +24,9 @@ class AuthService {
       FirebaseUser user = result.user;
       //creating new user data
       await DatabaseService(uid: user.uid)
-          .updateSaleData('name', 0, 100, 'comment', [0], 'date');
+          .updateSaleData('name', 0, 100, 'comment', [0], 'date',[0]);
       await DatabaseService(uid: user.uid)
-          .updateTaxData('name', 0, 125, 'commnet', 1025, 0, 'date');
+          .updateTaxData('name', 0, 125, 'commnet', 1025, 0, 'date','dateOfCheque');
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
