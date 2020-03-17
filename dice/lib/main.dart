@@ -4,11 +4,12 @@ import 'package:audioplayers/audio_cache.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.grey[850],
       appBar: AppBar(
         title: Text('Dicee'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.grey[900],
       ),
       body: DicePage(),
     ),
@@ -16,7 +17,6 @@ void main() {
 }
 
 class DicePage extends StatefulWidget {
-
   @override
   _DicePageState createState() => _DicePageState();
 }
