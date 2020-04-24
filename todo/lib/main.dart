@@ -10,6 +10,7 @@ class myApp extends StatelessWidget {
       title: "ToDo",
       debugShowCheckedModeBanner: false,
       home: NoteList(),
+      theme: ThemeData(primarySwatch: Colors.pink),
     );
   }
 }
