@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "599453727496",
+    "firebase_url": "https://elearning-6d6d8.firebaseio.com",
+    "project_id": "elearning-6d6d8",
+    "storage_bucket": "elearning-6d6d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599453727496:android:ae94c2cddfbb9083630abd",
+        "android_client_info": {
+          "package_name": "mdhv.com.elearning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599453727496-1abub1jatbat1orh1jua7sklgdb92hue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mdhv.com.elearning",
+            "certificate_hash": "e359049d82079ed130eec247feb2156d1319e787"
+          }
+        },
+        {
+          "client_id": "599453727496-3d3l86hvblgh7aml22n1p2hbc8c5a3v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeVgTm0kNT7-a7V_icLgDD5IT4IZB2jIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599453727496-3d3l86hvblgh7aml22n1p2hbc8c5a3v7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
