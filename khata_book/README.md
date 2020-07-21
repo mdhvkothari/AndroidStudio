@@ -1,4 +1,4 @@
-# detail_book
+# khata_book
 
 A new Flutter application.
 

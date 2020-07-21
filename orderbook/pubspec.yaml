@@ -1,4 +1,4 @@
-name: detail_book
+name: orderbook
 description: A new Flutter application.
 
 # The following defines the version and build number for your application.
@@ -18,8 +18,8 @@ environment:
 
 dependencies:
   cloud_firestore:
-  intl:
   flutter_spinkit:
+  intl:
   random_string:
   flutter:
     sdk: flutter

@@ -1,0 +1,3 @@
+class saleModel{
+  String creditAmount;
+}

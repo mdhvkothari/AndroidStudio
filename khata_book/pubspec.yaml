@@ -1,4 +1,4 @@
-name: detail_book
+name: khata_book
 description: A new Flutter application.
 
 # The following defines the version and build number for your application.
@@ -18,9 +18,9 @@ environment:
 
 dependencies:
   cloud_firestore:
-  intl:
-  flutter_spinkit:
   random_string:
+  flutter_spinkit:
+  url_launcher: ^5.5.0
   flutter:
     sdk: flutter
 
