@@ -3,6 +3,8 @@ import 'package:khata_book/Screens/Local/particularSaleBillCredit.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
+import '../editSaleBill.dart';
+
 class localSale extends StatefulWidget {
   String shopId,place;
 
@@ -54,7 +56,7 @@ class _localSaleState extends State<localSale> {
                     margin: EdgeInsets.all(10.0),
                     child: Container(
                       margin: EdgeInsets.all(10.0),
-                      height: 80.0,
+                      height: 101.0,
                       child: Center(
                         child: Column(
                           children: <Widget>[
@@ -102,11 +104,35 @@ class _localSaleState extends State<localSale> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5.0,),
-                            Text(
-                              snapshot.data.documents[index]
-                                  .data["comment"],
-                              style: TextStyle(fontSize: 15.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  snapshot.data.documents[index]
+                                      .data["comment"],
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                editSaleBill(
+                                                  id: snapshot
+                                                      .data
+                                                      .documents[index]
+                                                      .data["id"],
+                                                  billNumber: snapshot
+                                                      .data
+                                                      .documents[index]
+                                                      .data["billNumber"],
+                                                  place: widget.place,
+                                                  shopId: widget.shopId,
+                                                )));
+                                  },
+                                  icon: Icon(Icons.edit),
+                                )],
                             ),
                           ],
                         ),

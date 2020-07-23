@@ -107,7 +107,7 @@ class _saleCreditState extends State<saleCredit> {
                           if (widget.place == "Tappal") {
                             await database
                                 .addTappalCreditSaleMoney(
-                                    widget.shopId, widget.billId, saleBillMap)
+                                    widget.shopId, widget.billId, saleBillMap,id)
                                 .then((val) {
                               setState(() {
                                 _isLoading = false;
@@ -118,7 +118,7 @@ class _saleCreditState extends State<saleCredit> {
                           if (widget.place == "Local") {
                             await database
                                 .addLocalCreditSaleMoney(
-                                    widget.shopId, widget.billId, saleBillMap)
+                                    widget.shopId, widget.billId, saleBillMap,id)
                                 .then((val) {
                               setState(() {
                                 _isLoading = false;
@@ -129,7 +129,7 @@ class _saleCreditState extends State<saleCredit> {
                           if (widget.place == "Jhangirpur") {
                             await database
                                 .addJhangirpurCreditSaleMoney(
-                                widget.shopId, widget.billId, saleBillMap)
+                                widget.shopId, widget.billId, saleBillMap,id)
                                 .then((val) {
                               setState(() {
                                 _isLoading = false;

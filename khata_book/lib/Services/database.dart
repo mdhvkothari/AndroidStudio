@@ -29,6 +29,14 @@ class Database {
       print(e.toString());
     });
   }
+  Future<void> updateTappalShop(String shopName, String phone, String id) async {
+    await Firestore.instance
+        .collection("Tappal")
+        .document(id)
+        .updateData({"shopName": shopName, "phone": phone}).catchError((e) {
+      print(e.toString());
+    });
+  }
 
   Future<void> addLocalShop(Map shopMap, String id) async {
     await Firestore.instance
@@ -39,7 +47,14 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> updateLocalShop(String shopName, String phone, String id) async {
+    await Firestore.instance
+        .collection("Local")
+        .document(id)
+        .updateData({"shopName": shopName, "phone": phone}).catchError((e) {
+      print(e.toString());
+    });
+  }
   Future<void> addJhangirpurShop(Map shopMap, String id) async {
     await Firestore.instance
         .collection("Jhangirpur")
@@ -49,7 +64,14 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> updateJhangirpurShop(String shopName, String phone, String id) async {
+    await Firestore.instance
+        .collection("Jhangirpur")
+        .document(id)
+        .updateData({"shopName": shopName, "phone": phone}).catchError((e) {
+      print(e.toString());
+    });
+  }
   Future<void> addJewarSaleBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -92,7 +114,22 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> updateTappalSaleBill(String shopId, String id, String billNumber,
+      String billAmount, String comment, String date) async {
+    await Firestore.instance
+        .collection("Tappal")
+        .document(shopId)
+        .collection("Sale")
+        .document(id)
+        .updateData({
+      "billAmount": billAmount,
+      "billNumber": billNumber,
+      "comment": comment,
+      "date": date
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
   Future<void> addLocalSaleBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -105,7 +142,22 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> updateLocalSaleBill(String shopId, String id, String billNumber,
+      String billAmount, String comment, String date) async {
+    await Firestore.instance
+        .collection("Local")
+        .document(shopId)
+        .collection("Sale")
+        .document(id)
+        .updateData({
+      "billAmount": billAmount,
+      "billNumber": billNumber,
+      "comment": comment,
+      "date": date
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
   Future<void> addJhangirpurSaleBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -118,7 +170,22 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> updateJhangirpurSaleBill(String shopId, String id, String billNumber,
+      String billAmount, String comment, String date) async {
+    await Firestore.instance
+        .collection("Jhangirpur")
+        .document(shopId)
+        .collection("Sale")
+        .document(id)
+        .updateData({
+      "billAmount": billAmount,
+      "billNumber": billNumber,
+      "comment": comment,
+      "date": date
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
   Future<void> addJewarTaxBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -132,6 +199,24 @@ class Database {
     });
   }
 
+  Future<void> editJewarTaxBill(String shopId, String billId, String billNo,
+      String billAmount, String date, String comment) async {
+    await Firestore.instance
+        .collection("Jewar")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .updateData({
+      "billNumber": billNo,
+      "billAmount": billAmount,
+      "date": date,
+      "comment": comment
+    }).catchError((e){
+      print(e.toString());
+    });
+  }
+
+
   Future<void> addTappalTaxBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -144,7 +229,22 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> editTappalTaxBill(String shopId, String billId, String billNo,
+      String billAmount, String date, String comment) async {
+    await Firestore.instance
+        .collection("Tappal")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .updateData({
+      "billNumber": billNo,
+      "billAmount": billAmount,
+      "date": date,
+      "comment": comment
+    }).catchError((e){
+      print(e.toString());
+    });
+  }
   Future<void> addLocalTaxBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -157,7 +257,22 @@ class Database {
       print(e.toString());
     });
   }
-
+  Future<void> editLocalTaxBill(String shopId, String billId, String billNo,
+      String billAmount, String date, String comment) async {
+    await Firestore.instance
+        .collection("Local")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .updateData({
+      "billNumber": billNo,
+      "billAmount": billAmount,
+      "date": date,
+      "comment": comment
+    }).catchError((e){
+      print(e.toString());
+    });
+  }
   Future<void> addJhangirpurTaxBill(
       Map saleBillMap, String id, String shopId) async {
     await Firestore.instance
@@ -167,6 +282,22 @@ class Database {
         .document(id)
         .setData(saleBillMap)
         .catchError((e) {
+      print(e.toString());
+    });
+  }
+  Future<void> editJhangirpurTaxBill(String shopId, String billId, String billNo,
+      String billAmount, String date, String comment) async {
+    await Firestore.instance
+        .collection("Jhangirpur")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .updateData({
+      "billNumber": billNo,
+      "billAmount": billAmount,
+      "date": date,
+      "comment": comment
+    }).catchError((e){
       print(e.toString());
     });
   }
@@ -202,50 +333,90 @@ class Database {
   }
 
   Future<void> addTappalCreditSaleMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Tappal")
         .document(shopId)
         .collection("Sale")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
       print(e.toString());
     });
   }
+  Future<void> editTappalCreditSaleMoney(String shopId, String billId, String id,
+      String creditAmount, String date) async {
+    await Firestore.instance
+        .collection("Tappal")
+        .document(shopId)
+        .collection("Sale")
+        .document(billId)
+        .collection("Credit")
+        .document(id)
+        .updateData({"creditAmount": creditAmount, "date": date}).catchError(
+            (e) {
+          print(e.toString());
+        });
+  }
 
   Future<void> addLocalCreditSaleMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Local")
         .document(shopId)
         .collection("Sale")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
       print(e.toString());
     });
   }
-
+  Future<void> editLocalCreditSaleMoney(String shopId, String billId, String id,
+      String creditAmount, String date) async {
+    await Firestore.instance
+        .collection("Local")
+        .document(shopId)
+        .collection("Sale")
+        .document(billId)
+        .collection("Credit")
+        .document(id)
+        .updateData({"creditAmount": creditAmount, "date": date}).catchError(
+            (e) {
+          print(e.toString());
+        });
+  }
   Future<void> addJhangirpurCreditSaleMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Jhangirpur")
         .document(shopId)
         .collection("Sale")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
       print(e.toString());
     });
   }
-
+  Future<void> editJhangirpurCreditSaleMoney(String shopId, String billId, String id,
+      String creditAmount, String date) async {
+    await Firestore.instance
+        .collection("Jhangirpur")
+        .document(shopId)
+        .collection("Sale")
+        .document(billId)
+        .collection("Credit")
+        .document(id)
+        .updateData({"creditAmount": creditAmount, "date": date}).catchError(
+            (e) {
+          print(e.toString());
+        });
+  }
   Future<void> addJewarCreditTaxMoney(
       String shopId, String billId, String id, Map creditDetails) async {
     await Firestore.instance
@@ -274,7 +445,7 @@ class Database {
         .document(shopId)
         .collection("Tax")
         .document(billId)
-        .collection("credit")
+        .collection("Credit")
         .document(id)
         .updateData({
       "bank": bank,
@@ -287,46 +458,122 @@ class Database {
   }
 
   Future<void> addTappalCreditTaxMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Tappal")
         .document(shopId)
         .collection("Tax")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
       print(e.toString());
     });
   }
 
+
+  Future<void> editTappalTaxCredit(
+      String shopId,
+      String billId,
+      String id,
+      String bank,
+      String chequeNumber,
+      String creditAmount,
+      String date) async {
+    await Firestore.instance
+        .collection("Tappal")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .collection("Credit")
+        .document(id)
+        .updateData({
+      "bank": bank,
+      "chequeNumber": chequeNumber,
+      "creditAmount": creditAmount,
+      "date": date
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   Future<void> addLocalCreditTaxMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Local")
         .document(shopId)
         .collection("Tax")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
       print(e.toString());
     });
   }
 
+  Future<void> editLocalTaxCredit(
+      String shopId,
+      String billId,
+      String id,
+      String bank,
+      String chequeNumber,
+      String creditAmount,
+      String date) async {
+    await Firestore.instance
+        .collection("Local")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .collection("credit")
+        .document(id)
+        .updateData({
+      "bank": bank,
+      "chequeNumber": chequeNumber,
+      "creditAmount": creditAmount,
+      "date": date
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   Future<void> addJhangirpurCreditTaxMoney(
-      String shopId, String billId, Map creditDetails) async {
+      String shopId, String billId, Map creditDetails,String id) async {
     await Firestore.instance
         .collection("Jhangirpur")
         .document(shopId)
         .collection("Tax")
         .document(billId)
         .collection("Credit")
-        .document()
+        .document(id)
         .setData(creditDetails)
         .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  Future<void> editJhangirpurTaxCredit(
+      String shopId,
+      String billId,
+      String id,
+      String bank,
+      String chequeNumber,
+      String creditAmount,
+      String date) async {
+    await Firestore.instance
+        .collection("Jhangirpur")
+        .document(shopId)
+        .collection("Tax")
+        .document(billId)
+        .collection("credit")
+        .document(id)
+        .updateData({
+      "bank": bank,
+      "chequeNumber": chequeNumber,
+      "creditAmount": creditAmount,
+      "date": date
+    }).catchError((e) {
       print(e.toString());
     });
   }

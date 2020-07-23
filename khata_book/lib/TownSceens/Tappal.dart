@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/TappalBills/shopBillDetails.dart';
 import 'package:khata_book/Screens/addingShopDetails.dart';
+import 'package:khata_book/Screens/editShopData.dart';
 import 'package:khata_book/Services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -70,19 +71,41 @@ class _TappalState extends State<Tappal> {
                         child: Center(
                           child: Row(
                             mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
+                            MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
                                 snapshot
                                     .data.documents[index].data["shopName"],
                                 style: TextStyle(fontSize: 27.0),
                               ),
+                              SizedBox(width: 40.0,),
                               IconButton(
                                 onPressed: ()async {
                                   await launch('tel:+91${snapshot
                                       .data.documents[index].data["phone"]}');
                                 },
                                 icon: Icon(Icons.phone),
+                              ),
+
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              editShopData(
+                                                shopName: snapshot
+                                                    .data
+                                                    .documents[index]
+                                                    .data["shopName"],
+                                                placeName: widget.place,
+                                                id: snapshot
+                                                    .data
+                                                    .documents[index]
+                                                    .data["id"],
+                                              )));
+                                },
+                                icon: Icon(Icons.edit),
                               )
                             ],
                           ),

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/addingTaxBills.dart';
 import 'package:khata_book/Screens/JewarBills/particularTaxBillCredit.dart';
+import 'package:khata_book/Screens/editTaxBill.dart';
 import 'package:khata_book/Services/database.dart';
 
 import '../loading.dart';
 
 class jewarTax extends StatefulWidget {
-  String shopId,place;
+  String shopId, place;
 
-  jewarTax({this.shopId,this.place});
+  jewarTax({this.shopId, this.place});
 
   @override
   _jewarTaxState createState() => _jewarTaxState();
@@ -47,7 +48,8 @@ class _jewarTaxState extends State<jewarTax> {
                                       shopId: widget.shopId,
                                       billId: snapshot
                                           .data.documents[index].data["id"],
-                                  place: widget.place,
+                                      place: widget.place,
+
                                     )));
                       },
                       child: Card(
@@ -110,12 +112,29 @@ class _jewarTaxState extends State<jewarTax> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        snapshot
-                                            .data.documents[index].data["comment"],
+                                        snapshot.data.documents[index]
+                                            .data["comment"],
                                         style: TextStyle(fontSize: 15.0),
                                       ),
                                       IconButton(
-                                        onPressed: (){},
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      editTaxBill(
+                                                        place: widget.place,
+                                                        shopId: widget.shopId,
+                                                        billId: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["id"],
+                                                        billNumber: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["billNumber"],
+                                                      )));
+                                        },
                                         icon: Icon(Icons.edit),
                                       )
                                     ],

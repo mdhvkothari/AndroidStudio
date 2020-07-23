@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
+import 'package:khata_book/TownSceens/Jhangirpur.dart';
+import 'package:khata_book/TownSceens/Local.dart';
+import 'package:khata_book/TownSceens/Tappal.dart';
 import 'package:khata_book/TownSceens/jewar.dart';
 
 
@@ -79,45 +82,45 @@ class _editShopDataState extends State<editShopData> {
                           });
                         });
                       }
-//                      if (widget.placeName == "Tappal") {
-//                        await database
-//                            .addTappalShop(shopMap, id)
-//                            .then((val) {
-//                          setState(() {
-//                            _isLoading = false;
-//                            Navigator.pop(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => Tappal()));
-//                          });
-//                        });
-//                      }
-//                      if (widget.placeName == "Local") {
-//                        await database
-//                            .addLocalShop(shopMap, id)
-//                            .then((val) {
-//                          setState(() {
-//                            _isLoading = false;
-//                            Navigator.pop(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => Local()));
-//                          });
-//                        });
-//                      }
-//                      if (widget.placeName == "Jhangirpur") {
-//                        await database
-//                            .addJhangirpurShop(shopMap, id)
-//                            .then((val) {
-//                          setState(() {
-//                            _isLoading = false;
-//                            Navigator.pop(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => Local()));
-//                          });
-//                        });
-//                      }
+                      if (widget.placeName == "Tappal") {
+                        await database
+                            .updateTappalShop(shopName, shopNumber,widget.id)
+                            .then((val) {
+                          setState(() {
+                            _isLoading = false;
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tappal()));
+                          });
+                        });
+                      }
+                      if (widget.placeName == "Local") {
+                        await database
+                            .updateLocalShop(shopName, shopNumber,widget.id)
+                            .then((val) {
+                          setState(() {
+                            _isLoading = false;
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Local()));
+                          });
+                        });
+                      }
+                      if (widget.placeName == "Jhangirpur") {
+                        await database
+                            .updateJhangirpurShop(shopName, shopNumber,widget.id)
+                            .then((val) {
+                          setState(() {
+                            _isLoading = false;
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Jhangirpur()));
+                          });
+                        });
+                      }
                     }
                   },
                   child: Text("SAVE"),

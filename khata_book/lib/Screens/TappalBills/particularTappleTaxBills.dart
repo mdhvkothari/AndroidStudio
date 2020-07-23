@@ -3,6 +3,7 @@ import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
 import '../addCreditTaxBill.dart';
+import '../editTaxBillCredit.dart';
 
 class particularTaxBillTappal extends StatefulWidget {
   String billId, shopId,place;
@@ -120,6 +121,21 @@ class _particularTaxBillTappalState extends State<particularTaxBillTappal> {
                                     "${snapshot.data.documents[index].data["date"]}",
                                     style: TextStyle(fontSize: 25.0),
                                   ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  editTaxBillCredit(
+                                                    shopId: widget.shopId,
+                                                    place: widget.place,
+                                                    billId: widget.billId,
+                                                    id:snapshot.data.documents[index].data["id"] ,
+                                                  )));
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  )
                                 ],
                               ),
                             ],

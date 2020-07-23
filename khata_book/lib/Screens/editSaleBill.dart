@@ -120,7 +120,7 @@ class _editSaleBillState extends State<editSaleBill> {
                                       billNumber,
                                       billAmount,
                                       comment,
-                                  "${date.day}-${date.month}-${date.year}")
+                                      "${date.day}-${date.month}-${date.year}")
                                   .then((val) {
                                 setState(() {
                                   _isLoading = false;
@@ -128,40 +128,54 @@ class _editSaleBillState extends State<editSaleBill> {
                                 Navigator.pop(context);
                               });
                             }
-//                        if (widget.place == "Tappal") {
-//                          await database
-//                              .addTappalSaleBill(
-//                              saleBillMap, id, widget.shopId)
-//                              .then((val) {
-//                            setState(() {
-//                              _isLoading = false;
-//                            });
-//                            Navigator.pop(context);
-//                          });
-//                        }
-//                        if (widget.place == "Local") {
-//                          await database
-//                              .addLocalSaleBill(
-//                              saleBillMap, id, widget.shopId)
-//                              .then((val) {
-//                            setState(() {
-//                              _isLoading = false;
-//                            });
-//                            Navigator.pop(context);
-//                          });
-//                        }
-//                        if (widget.place == "Jhangirpur") {
-//                          await database
-//                              .addJhangirpurSaleBill(
-//                              saleBillMap, id, widget.shopId)
-//                              .then((val) {
-//                            setState(() {
-//                              _isLoading = false;
-//                            });
-//                            Navigator.pop(context);
-//                          });
-//                        }
-
+                            if (widget.place == "Tappal") {
+                              await database
+                                  .updateTappalSaleBill(
+                                      widget.shopId,
+                                      widget.id,
+                                      billNumber,
+                                      billAmount,
+                                      comment,
+                                      "${date.day}-${date.month}-${date.year}")
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
+                            if (widget.place == "Local") {
+                              await database
+                                  .updateLocalSaleBill(
+                                      widget.shopId,
+                                      widget.id,
+                                      billNumber,
+                                      billAmount,
+                                      comment,
+                                      "${date.day}-${date.month}-${date.year}")
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
+                            if (widget.place == "Jhangirpur") {
+                              await database
+                                  .updateJhangirpurSaleBill(
+                                      widget.shopId,
+                                      widget.id,
+                                      billNumber,
+                                      billAmount,
+                                      comment,
+                                      "${date.day}-${date.month}-${date.year}")
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
                           }
                         },
                         child: Text("UPDATE"),

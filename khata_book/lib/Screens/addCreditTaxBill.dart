@@ -124,7 +124,7 @@ class _taxCreditState extends State<taxCredit> {
                         if(widget.place=="Tappal"){
                           await database
                               .addTappalCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap)
+                              widget.shopId, widget.billId, saleBillMap,id)
                               .then((val) {
                             setState(() {
                               _isLoading = false;
@@ -135,7 +135,7 @@ class _taxCreditState extends State<taxCredit> {
                         if(widget.place=="Local"){
                           await database
                               .addLocalCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap)
+                              widget.shopId, widget.billId, saleBillMap,id)
                               .then((val) {
                             setState(() {
                               _isLoading = false;
@@ -146,7 +146,7 @@ class _taxCreditState extends State<taxCredit> {
                         if(widget.place=="Jhangirpur"){
                           await database
                               .addJhangirpurCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap)
+                              widget.shopId, widget.billId, saleBillMap,id)
                               .then((val) {
                             setState(() {
                               _isLoading = false;

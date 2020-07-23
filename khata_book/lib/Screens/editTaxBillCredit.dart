@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
+import 'package:random_string/random_string.dart';
 
 import 'loading.dart';
 
-class editSaleCredit extends StatefulWidget {
+class editTaxBillCredit extends StatefulWidget {
   String shopId, billId, place, id;
 
-  editSaleCredit({this.shopId, this.place, this.billId, this.id});
+  editTaxBillCredit({this.shopId, this.billId, this.place, this.id});
 
   @override
-  _editSaleCreditState createState() => _editSaleCreditState();
+  _editTaxBillCreditState createState() => _editTaxBillCreditState();
 }
 
-class _editSaleCreditState extends State<editSaleCredit> {
+class _editTaxBillCreditState extends State<editTaxBillCredit> {
   final _key = GlobalKey<FormState>();
-  String creditAmount, id;
+  String creditAmount, chequeNumber, Bank, id;
   DateTime _date = DateTime.now();
   bool _isLoading = false;
   Database database = Database();
@@ -57,6 +58,30 @@ class _editSaleCreditState extends State<editSaleCredit> {
                     SizedBox(
                       height: 20.0,
                     ),
+                    TextFormField(
+                      validator: (val) => val.isEmpty ? "Enter Amount" : null,
+                      decoration: InputDecoration(
+                        hintText: "Enter Cheque Number or RTGS",
+                      ),
+                      onChanged: (val) {
+                        chequeNumber = val;
+                      },
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    TextFormField(
+                      validator: (val) => val.isEmpty ? "Enter Amount" : null,
+                      decoration: InputDecoration(
+                        hintText: "Enter bank Name",
+                      ),
+                      onChanged: (val) {
+                        Bank = val;
+                      },
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     Row(
                       children: <Widget>[
                         IconButton(
@@ -84,17 +109,14 @@ class _editSaleCreditState extends State<editSaleCredit> {
                           setState(() {
                             _isLoading = true;
                           });
-                          Map<String, dynamic> saleBillMap = {
-                            "creditAmount": creditAmount,
-                            "date": "${_date.day}-${_date.month}-${_date.year}",
-                            "id": id
-                          };
                           if (widget.place == "Jewar") {
                             await database
-                                .editJewarCreditSaleMoney(
+                                .editJewarTaxCredit(
                                     widget.shopId,
                                     widget.billId,
                                     widget.id,
+                                    Bank,
+                                    chequeNumber,
                                     creditAmount,
                                     "${_date.day}-${_date.month}-${_date.year}")
                                 .then((val) {
@@ -104,54 +126,47 @@ class _editSaleCreditState extends State<editSaleCredit> {
                               Navigator.pop(context);
                             });
                           }
-                          if (widget.place == "Tappal") {
-                            await database
-                                .editTappalCreditSaleMoney(
-                                    widget.shopId,
-                                    widget.billId,
-                                    widget.id,
-                                    creditAmount,
-                                    "${_date.day}-${_date.month}-${_date.year}")
-                                .then((val) {
-                              setState(() {
-                                _isLoading = false;
-                              });
-                              Navigator.pop(context);
+                        if(widget.place=="Tappal"){
+                          await database
+                              .editTappalTaxCredit(widget.shopId,
+                              widget.billId,
+                              widget.id,
+                              Bank,
+                              chequeNumber,
+                              creditAmount,
+                              "${_date.day}-${_date.month}-${_date.year}")
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
                             });
-                          }
-                          if (widget.place == "Local") {
-                            await database
-                                .editJhangirpurCreditSaleMoney(
-                                    widget.shopId,
-                                    widget.billId,
-                                    widget.id,
-                                    creditAmount,
-                                    "${_date.day}-${_date.month}-${_date.year}")
-                                .then((val) {
-                              setState(() {
-                                _isLoading = false;
-                              });
-                              Navigator.pop(context);
-                            });
-                          }
-                          if (widget.place == "Jhangirpur") {
-                            await database
-                                .editJhangirpurCreditSaleMoney(
-                                    widget.shopId,
-                                    widget.billId,
-                                    widget.id,
-                                    creditAmount,
-                                    "${_date.day}-${_date.month}-${_date.year}")
-                                .then((val) {
-                              setState(() {
-                                _isLoading = false;
-                              });
-                              Navigator.pop(context);
-                            });
-                          }
+                            Navigator.pop(context);
+                          });
+                        }
+//                        if(widget.place=="Local"){
+//                          await database
+//                              .addLocalCreditTaxMoney(
+//                              widget.shopId, widget.billId, saleBillMap)
+//                              .then((val) {
+//                            setState(() {
+//                              _isLoading = false;
+//                            });
+//                            Navigator.pop(context);
+//                          });
+//                        }
+//                        if(widget.place=="Jhangirpur"){
+//                          await database
+//                              .addJhangirpurCreditTaxMoney(
+//                              widget.shopId, widget.billId, saleBillMap)
+//                              .then((val) {
+//                            setState(() {
+//                              _isLoading = false;
+//                            });
+//                            Navigator.pop(context);
+//                          });
+//                        }
                         }
                       },
-                      child: Text("Add"),
+                      child: Text("UPDATE"),
                     )
                   ])),
             ),

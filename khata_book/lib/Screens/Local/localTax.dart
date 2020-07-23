@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/Local/particularTaxBillCredit.dart';
 import 'package:khata_book/Services/database.dart';
 
+import '../editTaxBill.dart';
 import '../loading.dart';
 
 class localTax extends StatefulWidget {
@@ -54,7 +55,7 @@ class _localTaxState extends State<localTax> {
                       margin: EdgeInsets.all(10.0),
                       child: Container(
                         margin: EdgeInsets.all(10.0),
-                        height: 80.0,
+                        height: 101.0,
                         child: Center(
                           child: Column(
                             children: <Widget>[
@@ -102,14 +103,39 @@ class _localTaxState extends State<localTax> {
                                       ],
                                     ),
                                   ]),
-                              SizedBox(
-                                height: 5.0,
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    snapshot
+                                        .data.documents[index].data["comment"],
+                                    style: TextStyle(fontSize: 15.0),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  editTaxBill(
+                                                    place: widget.place,
+                                                    shopId: widget.shopId,
+                                                    billId: snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["id"],
+                                                    billNumber: snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["billNumber"],
+                                                  )));
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  )
+                                ],
                               ),
-                              Text(
-                                snapshot
-                                    .data.documents[index].data["comment"],
-                                style: TextStyle(fontSize: 15.0),
-                              ),
+
                             ],
                           ),
                         ),
