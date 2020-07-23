@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
+import 'package:random_string/random_string.dart';
 
-import '../loading.dart';
+import 'loading.dart';
 
 class taxCredit extends StatefulWidget {
-  String shopId, billId;
-  taxCredit({this.shopId,this.billId});
+  String shopId, billId,place;
+  taxCredit({this.shopId,this.billId,this.place});
   @override
   _taxCreditState createState() => _taxCreditState();
 }
 
 class _taxCreditState extends State<taxCredit> {
   final _key = GlobalKey<FormState>();
-  String creditAmount,chequeNumber,Bank;
+  String creditAmount,chequeNumber,Bank,id;
   DateTime _date = DateTime.now();
   bool _isLoading = false;
   Database database = Database();
@@ -55,12 +56,11 @@ class _taxCreditState extends State<taxCredit> {
                   TextFormField(
                     validator: (val) => val.isEmpty ? "Enter Amount" : null,
                     decoration: InputDecoration(
-                      hintText: "Enter Cheque Number",
+                      hintText: "Enter Cheque Number or RTGS",
                     ),
                     onChanged: (val) {
                       chequeNumber = val;
                     },
-                    keyboardType: TextInputType.number,
                   ),
                   SizedBox(height: 20.0,),
                   TextFormField(
@@ -71,7 +71,6 @@ class _taxCreditState extends State<taxCredit> {
                     onChanged: (val) {
                       Bank = val;
                     },
-                    keyboardType: TextInputType.number,
                   ),
                   SizedBox(
                     height: 20.0,
@@ -103,21 +102,58 @@ class _taxCreditState extends State<taxCredit> {
                         setState(() {
                           _isLoading = true;
                         });
+                        id = randomAlpha(16);
                         Map<String, dynamic> saleBillMap = {
                           "creditAmount": creditAmount,
                           "date": "${_date.day}-${_date.month}-${_date.year}",
                           "chequeNumber" :chequeNumber,
-                          "bank":Bank
+                          "bank":Bank,
+                          "id":id,
                         };
-                        await database
-                            .addCreditTaxMoney(
-                            widget.shopId, widget.billId, saleBillMap)
-                            .then((val) {
-                          setState(() {
-                            _isLoading = false;
+                        if(widget.place=="Jewar"){
+                          await database
+                              .addJewarCreditTaxMoney(
+                              widget.shopId, widget.billId,id, saleBillMap)
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
                           });
-                          Navigator.pop(context);
-                        });
+                        }
+                        if(widget.place=="Tappal"){
+                          await database
+                              .addTappalCreditTaxMoney(
+                              widget.shopId, widget.billId, saleBillMap)
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          });
+                        }
+                        if(widget.place=="Local"){
+                          await database
+                              .addLocalCreditTaxMoney(
+                              widget.shopId, widget.billId, saleBillMap)
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          });
+                        }
+                        if(widget.place=="Jhangirpur"){
+                          await database
+                              .addJhangirpurCreditTaxMoney(
+                              widget.shopId, widget.billId, saleBillMap)
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          });
+                        }
                       }
                     },
                     child: Text("Add"),

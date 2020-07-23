@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
-import 'package:khata_book/Town%20Sceens/jewar.dart';
+import 'package:khata_book/TownSceens/Local.dart';
+import 'package:khata_book/TownSceens/Tappal.dart';
+import 'package:khata_book/TownSceens/jewar.dart';
 import 'package:random_string/random_string.dart';
 
 class shopDetails extends StatefulWidget {
@@ -74,15 +76,58 @@ class _shopDetailsState extends State<shopDetails> {
                               "id": id,
                               "phone": shopNumber,
                             };
-                            await database.addShop(shopMap, id).then((val) {
-                              setState(() {
-                                _isLoading = false;
-                                Navigator.pop(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Jewar()));
+                            if (widget.placeName == "Jewar") {
+                              await database
+                                  .addJewarShop(shopMap, id)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Jewar()));
+                                });
                               });
-                            });
+                            }
+                            if (widget.placeName == "Tappal") {
+                              await database
+                                  .addTappalShop(shopMap, id)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Tappal()));
+                                });
+                              });
+                            }
+                            if (widget.placeName == "Local") {
+                              await database
+                                  .addLocalShop(shopMap, id)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Local()));
+                                });
+                              });
+                            }
+                            if (widget.placeName == "Jhangirpur") {
+                              await database
+                                  .addJhangirpurShop(shopMap, id)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Local()));
+                                });
+                              });
+                            }
                           }
                         },
                         child: Text("ADD"),

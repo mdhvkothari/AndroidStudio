@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/addCreditSaleBillDetails.dart';
-import 'package:khata_book/Screens/editInSaleCredit.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
-class particularSaleBill extends StatefulWidget {
-  String billId, shopId, billAmount, place;
+class particularSaleBillTappal extends StatefulWidget {
+  String billId, shopId, billAmount,place;
 
-  particularSaleBill({this.billId, this.shopId, this.billAmount, this.place});
+  particularSaleBillTappal({this.billId, this.shopId, this.billAmount,this.place});
 
   @override
-  _particularSaleBillState createState() => _particularSaleBillState();
+  _particularSaleBillTappalState createState() => _particularSaleBillTappalState();
 }
 
-class _particularSaleBillState extends State<particularSaleBill> {
+class _particularSaleBillTappalState extends State<particularSaleBillTappal> {
   Stream particularCreditBill;
   String totalCreditedAmount;
   Database database = Database();
@@ -23,7 +22,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
   @override
   void initState() {
     database
-        .getJewarParticularSaleBillCredit(widget.shopId, widget.billId)
+        .getTappalParticularSaleBillCredit(widget.shopId, widget.billId)
         .then((val) {
       setState(() {
         particularCreditBill = val;
@@ -51,12 +50,11 @@ class _particularSaleBillState extends State<particularSaleBill> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        saleCredit(
-                          shopId: widget.shopId,
-                          billId: widget.billId,
-                          place: widget.place,
-                        )));
+                    builder: (context) => saleCredit(
+                      shopId: widget.shopId,
+                      billId: widget.billId,
+                      place: widget.place,
+                    )));
           },
         ),
         body: StreamBuilder(
@@ -72,7 +70,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
                       margin: EdgeInsets.all(20.0),
                       child: Container(
                         margin: EdgeInsets.all(10.0),
-                        height: 101.0,
+                        height: 95.0,
                         child: Center(
                           child: Column(
                             children: <Widget>[
@@ -102,38 +100,22 @@ class _particularSaleBillState extends State<particularSaleBill> {
                                         style: TextStyle(fontSize: 20.0),
                                       ),
                                       Text(
-                                        "${snapshot.data.documents[index]
-                                            .data["date"]}",
+                                        "${snapshot.data.documents[index].data["date"]}",
                                         style: TextStyle(fontSize: 25.0),
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 10.0,),
                               Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Left: ${left(int.parse(widget.billAmount),
-                                        int.parse(snapshot.data.documents[index]
-                                            .data["creditAmount"]))}",
+                                    "Left: ${left(int.parse(widget.billAmount), int.parse(snapshot.data.documents[index].data["creditAmount"]))}",
                                     style: TextStyle(fontSize: 25.0),
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              editSaleCredit(
-                                                shopId: widget.shopId,
-                                                place: widget.place,
-                                                billId: widget.billId,
-                                                id:snapshot.data.documents[index]
-                                                    .data["id"] ,
-                                              )));
-                                    },
-                                    icon: Icon(Icons.edit),
-                                  )
                                 ],
                               ),
                             ],

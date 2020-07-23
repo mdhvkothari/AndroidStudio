@@ -21,7 +21,7 @@ class _particularTaxBillState extends State<particularTaxBill> {
   @override
   void initState() {
     database
-        .getJewarParticularTaxBillCredit(widget.shopId, widget.billId)
+        .getLocalParticularTaxBillCredit(widget.shopId, widget.billId)
         .then((val) {
       setState(() {
         particularCreditBill = val;

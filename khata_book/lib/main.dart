@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/home.dart';
-import 'package:khata_book/Town%20Sceens/jewar.dart';
+import 'package:khata_book/TownSceens/jewar.dart';
 
 void main() => runApp(MyApp());
 

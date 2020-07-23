@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:khata_book/Screens/JewarBills/addingTaxBills.dart';
+import 'package:khata_book/Screens/addingTaxBills.dart';
 import 'package:khata_book/Screens/JewarBills/particularTaxBillCredit.dart';
 import 'package:khata_book/Services/database.dart';
 
 import '../loading.dart';
 
 class jewarTax extends StatefulWidget {
-  String shopId;
+  String shopId,place;
 
-  jewarTax({this.shopId});
+  jewarTax({this.shopId,this.place});
 
   @override
   _jewarTaxState createState() => _jewarTaxState();
@@ -47,6 +47,7 @@ class _jewarTaxState extends State<jewarTax> {
                                       shopId: widget.shopId,
                                       billId: snapshot
                                           .data.documents[index].data["id"],
+                                  place: widget.place,
                                     )));
                       },
                       child: Card(
@@ -54,7 +55,7 @@ class _jewarTaxState extends State<jewarTax> {
                           margin: EdgeInsets.all(10.0),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
-                            height: 80.0,
+                            height: 106.0,
                             child: Center(
                               child: Column(
                                 children: <Widget>[
@@ -105,10 +106,19 @@ class _jewarTaxState extends State<jewarTax> {
                                   SizedBox(
                                     height: 5.0,
                                   ),
-                                  Text(
-                                    snapshot
-                                        .data.documents[index].data["comment"],
-                                    style: TextStyle(fontSize: 15.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        snapshot
+                                            .data.documents[index].data["comment"],
+                                        style: TextStyle(fontSize: 15.0),
+                                      ),
+                                      IconButton(
+                                        onPressed: (){},
+                                        icon: Icon(Icons.edit),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),

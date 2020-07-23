@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:khata_book/Screens/Jhangirpur/jhangirpurTax.dart';
 import 'package:khata_book/Screens/addingSalesBill.dart';
 import 'package:khata_book/Screens/addingTaxBills.dart';
-import 'package:khata_book/Screens/JewarBills/jewarSale.dart';
-import 'package:khata_book/Screens/JewarBills/jewarTax.dart';
+import 'jhangirpurSale.dart';
 
-class jewarBills extends StatefulWidget {
-  String id, shopName, palce;
+class JhangirpurBills extends StatefulWidget {
+  String id, shopName, place;
 
-  jewarBills({this.id, this.shopName, this.palce});
+  JhangirpurBills({this.id, this.shopName, this.place});
 
   @override
-  _jewarBillsState createState() => _jewarBillsState();
+  _JhangirpurBillsState createState() => _JhangirpurBillsState();
 }
 
-class _jewarBillsState extends State<jewarBills> {
+class _JhangirpurBillsState extends State<JhangirpurBills> {
   PageController pageController;
   int _page = 0;
 
@@ -26,7 +26,6 @@ class _jewarBillsState extends State<jewarBills> {
   void onPageChange(int page) {
     setState(() {
       _page = page;
-      print(widget.id);
     });
   }
 
@@ -48,18 +47,18 @@ class _jewarBillsState extends State<jewarBills> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => addingSaleBills(
-                          shopId: widget.id,
-                          place: widget.palce,
-                        )));
+                      shopId: widget.id,
+                      place: widget.place,
+                    )));
           }
           if (_page == 1) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => addingTaxBills(
-                          shopId: widget.id,
-                          place: widget.palce,
-                        )));
+                      shopId: widget.id,
+                      place: widget.place,
+                    )));
           }
         },
         backgroundColor: Colors.pink[900],
@@ -68,15 +67,15 @@ class _jewarBillsState extends State<jewarBills> {
       body: PageView(
         children: <Widget>[
           Container(
-            child: jewarSale(
+            child: jhangipurSale(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           ),
           Container(
-            child: jewarTax(
+            child: jhangipurTax(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           )
         ],

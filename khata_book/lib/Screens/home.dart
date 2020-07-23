@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khata_book/Town%20Sceens/jewar.dart';
+import 'package:khata_book/TownSceens/Jhangirpur.dart';
+import 'package:khata_book/TownSceens/Local.dart';
+import 'package:khata_book/TownSceens/Tappal.dart';
+import 'package:khata_book/TownSceens/jewar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,8 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var placeList = ["Jewar", "Tappal", "Jahangirpur", "Local"];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +32,14 @@ class _HomeState extends State<Home> {
                         fontSize: 60,
                         fontWeight: FontWeight.bold),
                   ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Container(
+                      height: 2.0,
+                      width: 130.0,
+                      color: Colors.white,
+                    ),
+                  ),
                   Text(
                     "Accounts on your hand",
                     style: TextStyle(color: Colors.white, fontSize: 30),
@@ -48,60 +57,119 @@ class _HomeState extends State<Home> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  Text("Select Town:"),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Select Town:",
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                  SizedBox(
+                    height: 7.0,
+                  ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Jewar()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Jewar(
+                                    place: "Jewar",
+                                  )));
                     },
                     child: Container(
                       height: 50.0,
                       width: 120.0,
                       child: Card(
-                        color: Colors.grey,
+                        elevation: 5.0,
                         child: Center(
                             child: Text(
                           "Jewar",
-                          style: TextStyle(fontSize: 30.0),
+                          style: TextStyle(
+                              fontSize: 30.0, color: Colors.pink[900]),
                         )),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 50.0,
-                    width: 120.0,
-                    child: Card(
-                      color: Colors.grey,
-                      child: Center(
-                          child: Text(
-                        "Tappal",
-                        style: TextStyle(fontSize: 30.0),
-                      )),
+                  SizedBox(
+                    height: 7.0,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Tappal(
+                                    place: "Tappal",
+                                  )));
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: 120.0,
+                      child: Card(
+                        elevation: 5.0,
+                        child: Center(
+                            child: Text(
+                          "Tappal",
+                          style: TextStyle(
+                              fontSize: 30.0, color: Colors.pink[900]),
+                        )),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: 50.0,
-                    width: 200.0,
-                    child: Card(
-                      color: Colors.grey,
-                      child: Center(
-                          child: Text(
-                        "Jhanghipur",
-                        style: TextStyle(fontSize: 30.0),
-                      )),
+                  SizedBox(
+                    height: 7.0,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Local(
+                                    place: "Local",
+                                  )));
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: 120.0,
+                      child: Card(
+                        elevation: 5.0,
+                        child: Center(
+                            child: Text(
+                          "Local",
+                          style: TextStyle(
+                              fontSize: 30.0, color: Colors.pink[900]),
+                        )),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: 50.0,
-                    width: 120.0,
-                    child: Card(
-                      color: Colors.grey,
-                      child: Center(
-                          child: Text(
-                        "Local",
-                        style: TextStyle(fontSize: 30.0),
-                      )),
+                  SizedBox(
+                    height: 7.0,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Jhangirpur(
+                                    place: "Jhangirpur",
+                                  )));
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: 200.0,
+                      child: Card(
+                        elevation: 5.0,
+                        child: Center(
+                            child: Text(
+                          "Jhangirpur",
+                          style: TextStyle(
+                              fontSize: 30.0, color: Colors.pink[900]),
+                        )),
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 7.0,
                   ),
                 ],
               ),

@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:khata_book/Screens/TappalBills/tappalSale.dart';
+import 'package:khata_book/Screens/TappalBills/tappalTax.dart';
 import 'package:khata_book/Screens/addingSalesBill.dart';
 import 'package:khata_book/Screens/addingTaxBills.dart';
-import 'package:khata_book/Screens/JewarBills/jewarSale.dart';
-import 'package:khata_book/Screens/JewarBills/jewarTax.dart';
 
-class jewarBills extends StatefulWidget {
-  String id, shopName, palce;
+class tappalBills extends StatefulWidget {
+  String id, shopName, place;
 
-  jewarBills({this.id, this.shopName, this.palce});
+  tappalBills({this.id, this.shopName, this.place});
 
   @override
-  _jewarBillsState createState() => _jewarBillsState();
+  _tappalBillsState createState() => _tappalBillsState();
 }
 
-class _jewarBillsState extends State<jewarBills> {
+class _tappalBillsState extends State<tappalBills> {
   PageController pageController;
   int _page = 0;
 
@@ -49,7 +49,7 @@ class _jewarBillsState extends State<jewarBills> {
                 MaterialPageRoute(
                     builder: (context) => addingSaleBills(
                           shopId: widget.id,
-                          place: widget.palce,
+                          place: widget.place,
                         )));
           }
           if (_page == 1) {
@@ -58,7 +58,7 @@ class _jewarBillsState extends State<jewarBills> {
                 MaterialPageRoute(
                     builder: (context) => addingTaxBills(
                           shopId: widget.id,
-                          place: widget.palce,
+                          place: widget.place,
                         )));
           }
         },
@@ -68,15 +68,15 @@ class _jewarBillsState extends State<jewarBills> {
       body: PageView(
         children: <Widget>[
           Container(
-            child: jewarSale(
+            child: tappalSale(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           ),
           Container(
-            child: jewarTax(
+            child: tappalTax(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           )
         ],

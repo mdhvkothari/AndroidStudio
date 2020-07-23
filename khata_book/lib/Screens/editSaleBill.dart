@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
-import 'package:random_string/random_string.dart';
 
-class addingSaleBills extends StatefulWidget {
-  String shopId;
+import 'loading.dart';
 
-  addingSaleBills({this.shopId});
+class editSaleBill extends StatefulWidget {
+  String id, billNumber, place, shopId;
+
+  editSaleBill({this.id, this.billNumber, this.place, this.shopId});
 
   @override
-  _addingSaleBillsState createState() => _addingSaleBillsState();
+  _editSaleBillState createState() => _editSaleBillState();
 }
 
-class _addingSaleBillsState extends State<addingSaleBills> {
+class _editSaleBillState extends State<editSaleBill> {
   final _key = GlobalKey<FormState>();
-  String billNumber,billAmount,comment, id;
-  DateTime _date = DateTime.now();
+  String billNumber, billAmount, comment, id;
+  DateTime date = DateTime.now();
   bool _isLoading = false;
   Database database = Database();
 
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: _date,
+        initialDate: date,
         firstDate: DateTime(2019),
         lastDate: DateTime(2021));
     setState(() {
-      _date = picked;
+      date = picked;
     });
   }
 
@@ -34,7 +34,7 @@ class _addingSaleBillsState extends State<addingSaleBills> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("addSaleBill"),
+          title: Text("Edit in ${widget.billNumber}"),
           backgroundColor: Colors.pink[900],
         ),
         body: _isLoading
@@ -73,12 +73,12 @@ class _addingSaleBillsState extends State<addingSaleBills> {
                       ),
                       TextFormField(
                         validator: (val) =>
-                        val.isEmpty ? "Enter bill amount" : null,
+                            val.isEmpty ? "Enter bill amount" : null,
                         decoration: InputDecoration(
                           hintText: "Enter bill amount",
                         ),
                         onChanged: (val) {
-                          billAmount = val ;
+                          billAmount = val;
                         },
                         keyboardType: TextInputType.number,
                       ),
@@ -98,8 +98,8 @@ class _addingSaleBillsState extends State<addingSaleBills> {
                           ),
                           SizedBox(width: 20.0),
                           Text(
-                            "$_date" != null
-                                ? "${_date.day}-${_date.month}-${_date.year}"
+                            "$date" != null
+                                ? "${date.day}-${date.month}-${date.year}"
                                 : "SELECT DATE",
                             style: TextStyle(fontSize: 25.0),
                           ),
@@ -112,26 +112,59 @@ class _addingSaleBillsState extends State<addingSaleBills> {
                             setState(() {
                               _isLoading = true;
                             });
-                            id = randomAlpha(16);
-                            Map<String, dynamic> saleBillMap = {
-                              "billNumber": billNumber,
-                              "id": id,
-                              "date": "${_date.day}-${_date.month}-${_date.year}",
-                              "billAmount":billAmount,
-                              "comment":comment,
-                            };
-                            await database
-                                .addJewarSaleBill(
-                                    saleBillMap, id, widget.shopId)
-                                .then((val) {
-                              setState(() {
-                                _isLoading = false;
+                            if (widget.place == "Jewar") {
+                              await database
+                                  .updateJewarSaleBill(
+                                      widget.shopId,
+                                      widget.id,
+                                      billNumber,
+                                      billAmount,
+                                      comment,
+                                  "${date.day}-${date.month}-${date.year}")
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
                               });
-                              Navigator.pop(context);
-                            });
+                            }
+//                        if (widget.place == "Tappal") {
+//                          await database
+//                              .addTappalSaleBill(
+//                              saleBillMap, id, widget.shopId)
+//                              .then((val) {
+//                            setState(() {
+//                              _isLoading = false;
+//                            });
+//                            Navigator.pop(context);
+//                          });
+//                        }
+//                        if (widget.place == "Local") {
+//                          await database
+//                              .addLocalSaleBill(
+//                              saleBillMap, id, widget.shopId)
+//                              .then((val) {
+//                            setState(() {
+//                              _isLoading = false;
+//                            });
+//                            Navigator.pop(context);
+//                          });
+//                        }
+//                        if (widget.place == "Jhangirpur") {
+//                          await database
+//                              .addJhangirpurSaleBill(
+//                              saleBillMap, id, widget.shopId)
+//                              .then((val) {
+//                            setState(() {
+//                              _isLoading = false;
+//                            });
+//                            Navigator.pop(context);
+//                          });
+//                        }
+
                           }
                         },
-                        child: Text("Add"),
+                        child: Text("UPDATE"),
                       )
                     ]))));
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/JewarBills/shopBillDetails.dart';
+import 'package:khata_book/Screens/TappalBills/shopBillDetails.dart';
 import 'package:khata_book/Screens/addingShopDetails.dart';
+import 'package:khata_book/Screens/editShopData.dart';
 import 'package:khata_book/Services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -59,10 +61,12 @@ class _JewarState extends State<Jewar> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => jewarBills(
-                                      shopName: snapshot.data.documents[index]
-                                          .data["shopName"],
-                                      id: snapshot
-                                          .data.documents[index].data["id"])));
+                                        shopName: snapshot.data.documents[index]
+                                            .data["shopName"],
+                                        id: snapshot
+                                            .data.documents[index].data["id"],
+                                        palce: widget.place,
+                                      )));
                         },
                         child: Card(
                           elevation: 5.0,
@@ -71,20 +75,40 @@ class _JewarState extends State<Jewar> {
                             height: 50.0,
                             child: Center(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
                                     snapshot
                                         .data.documents[index].data["shopName"],
                                     style: TextStyle(fontSize: 27.0),
                                   ),
+                                  SizedBox(width: 40.0,),
                                   IconButton(
-                                    onPressed: ()async {
-                                      await launch('tel:+91${snapshot
-                                          .data.documents[index].data["phone"]}');
+                                    onPressed: () async {
+                                      await launch(
+                                          'tel:+91${snapshot.data.documents[index].data["phone"]}');
                                     },
                                     icon: Icon(Icons.phone),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  editShopData(
+                                                    shopName: snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["shopName"],
+                                                    placeName: widget.place,
+                                                    id: snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["id"],
+                                                  )));
+                                    },
+                                    icon: Icon(Icons.edit),
                                   )
                                 ],
                               ),

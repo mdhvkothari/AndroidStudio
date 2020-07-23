@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/JewarBills/particularSaleBillCredit.dart';
+import 'package:khata_book/Screens/editSaleBill.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
 class jewarSale extends StatefulWidget {
-  String shopId;
+  String shopId, place;
 
-  jewarSale({this.shopId});
+  jewarSale({this.shopId, this.place});
 
   @override
   _jewarSaleState createState() => _jewarSaleState();
@@ -47,6 +48,7 @@ class _jewarSaleState extends State<jewarSale> {
                                       shopId: widget.shopId,
                                       billAmount: snapshot.data.documents[index]
                                           .data["billAmount"],
+                                      place: widget.place,
                                     )));
                       },
                       child: Card(
@@ -54,12 +56,13 @@ class _jewarSaleState extends State<jewarSale> {
                         margin: EdgeInsets.all(10.0),
                         child: Container(
                           margin: EdgeInsets.all(10.0),
-                          height: 80.0,
+                          height: 101.0,
                           child: Center(
                             child: Column(
                               children: <Widget>[
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Column(
                                       children: <Widget>[
@@ -94,19 +97,44 @@ class _jewarSaleState extends State<jewarSale> {
                                           style: TextStyle(fontSize: 18.0),
                                         ),
                                         Text(
-                                          snapshot.data.documents[index]
-                                              .data["date"],
+                                          "${snapshot.data.documents[index]
+                                              .data["date"]}",
                                           style: TextStyle(fontSize: 25.0),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 5.0,),
-                                Text(
-                                  snapshot.data.documents[index]
-                                      .data["comment"],
-                                  style: TextStyle(fontSize: 15.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      snapshot.data.documents[index]
+                                          .data["comment"],
+                                      style: TextStyle(fontSize: 15.0),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    editSaleBill(
+                                                      id: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["id"],
+                                                      billNumber: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["billNumber"],
+                                                      place: widget.place,
+                                                      shopId: widget.shopId,
+                                                    )));
+                                      },
+                                      icon: Icon(Icons.edit),
+                                    )
+                                  ],
                                 ),
                               ],
                             ),

@@ -4,16 +4,16 @@ import 'package:khata_book/Services/database.dart';
 
 import '../addCreditTaxBill.dart';
 
-class particularTaxBill extends StatefulWidget {
+class particularTaxBillTappal extends StatefulWidget {
   String billId, shopId,place;
 
-  particularTaxBill({this.billId, this.shopId,this.place});
+  particularTaxBillTappal({this.billId, this.shopId,this.place});
 
   @override
-  _particularTaxBillState createState() => _particularTaxBillState();
+  _particularTaxBillTappalState createState() => _particularTaxBillTappalState();
 }
 
-class _particularTaxBillState extends State<particularTaxBill> {
+class _particularTaxBillTappalState extends State<particularTaxBillTappal> {
   Stream particularCreditBill;
   String totalCreditedAmount;
   Database database = Database();
@@ -21,7 +21,7 @@ class _particularTaxBillState extends State<particularTaxBill> {
   @override
   void initState() {
     database
-        .getJewarParticularTaxBillCredit(widget.shopId, widget.billId)
+        .getTappalParticularTaxBillCredit(widget.shopId, widget.billId)
         .then((val) {
       setState(() {
         particularCreditBill = val;

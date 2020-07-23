@@ -5,16 +5,19 @@ import 'package:khata_book/Screens/addingTaxBills.dart';
 import 'package:khata_book/Screens/JewarBills/jewarSale.dart';
 import 'package:khata_book/Screens/JewarBills/jewarTax.dart';
 
-class jewarBills extends StatefulWidget {
-  String id, shopName, palce;
+import 'localSale.dart';
+import 'localTax.dart';
 
-  jewarBills({this.id, this.shopName, this.palce});
+class LocalBills extends StatefulWidget {
+  String id, shopName, place;
+
+  LocalBills({this.id, this.shopName, this.place});
 
   @override
-  _jewarBillsState createState() => _jewarBillsState();
+  _LocalBillsState createState() => _LocalBillsState();
 }
 
-class _jewarBillsState extends State<jewarBills> {
+class _LocalBillsState extends State<LocalBills> {
   PageController pageController;
   int _page = 0;
 
@@ -48,18 +51,18 @@ class _jewarBillsState extends State<jewarBills> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => addingSaleBills(
-                          shopId: widget.id,
-                          place: widget.palce,
-                        )));
+                      shopId: widget.id,
+                      place: widget.place,
+                    )));
           }
           if (_page == 1) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => addingTaxBills(
-                          shopId: widget.id,
-                          place: widget.palce,
-                        )));
+                      shopId: widget.id,
+                      place: widget.place,
+                    )));
           }
         },
         backgroundColor: Colors.pink[900],
@@ -68,15 +71,15 @@ class _jewarBillsState extends State<jewarBills> {
       body: PageView(
         children: <Widget>[
           Container(
-            child: jewarSale(
+            child: localSale(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           ),
           Container(
-            child: jewarTax(
+            child: localTax(
               shopId: widget.id,
-              place: widget.palce,
+              place: widget.place,
             ),
           )
         ],

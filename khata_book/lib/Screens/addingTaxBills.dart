@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
 import 'package:random_string/random_string.dart';
 
-import '../loading.dart';
+import 'loading.dart';
 
 class addingTaxBills extends StatefulWidget {
-  String shopId;
+  String shopId,place;
 
-  addingTaxBills({this.shopId});
+  addingTaxBills({this.shopId,this.place});
 
   @override
   _addingTaxBillsState createState() => _addingTaxBillsState();
@@ -120,14 +120,47 @@ class _addingTaxBillsState extends State<addingTaxBills> {
                               "date": "${_date.day}-${_date.month}-${_date.year}",
                               "comment":comment,
                             };
-                            await database
-                                .addJewarTaxBill(saleBillMap, id, widget.shopId)
-                                .then((val) {
-                              setState(() {
-                                _isLoading = false;
+                            if(widget.place=="Jewar"){
+                              await database
+                                  .addJewarTaxBill(saleBillMap, id, widget.shopId)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
                               });
-                              Navigator.pop(context);
-                            });
+                            }
+                            if(widget.place=="Tappal"){
+                              await database
+                                  .addTappalTaxBill(saleBillMap, id, widget.shopId)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
+                            if(widget.place=="Local"){
+                              await database
+                                  .addLocalTaxBill(saleBillMap, id, widget.shopId)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
+                            if (widget.place == "Jhangirpur") {
+                              await database
+                                  .addJhangirpurTaxBill(
+                                  saleBillMap, id, widget.shopId)
+                                  .then((val) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              });
+                            }
                           }
                         },
                         child: Text("Add"),
