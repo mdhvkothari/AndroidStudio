@@ -142,28 +142,40 @@ class _editTaxBillCreditState extends State<editTaxBillCredit> {
                             Navigator.pop(context);
                           });
                         }
-//                        if(widget.place=="Local"){
-//                          await database
-//                              .addLocalCreditTaxMoney(
-//                              widget.shopId, widget.billId, saleBillMap)
-//                              .then((val) {
-//                            setState(() {
-//                              _isLoading = false;
-//                            });
-//                            Navigator.pop(context);
-//                          });
-//                        }
-//                        if(widget.place=="Jhangirpur"){
-//                          await database
-//                              .addJhangirpurCreditTaxMoney(
-//                              widget.shopId, widget.billId, saleBillMap)
-//                              .then((val) {
-//                            setState(() {
-//                              _isLoading = false;
-//                            });
-//                            Navigator.pop(context);
-//                          });
-//                        }
+                        if(widget.place=="Local"){
+                          await database
+                              .editLocalTaxCredit(
+                              widget.shopId,
+                              widget.billId,
+                              widget.id,
+                              Bank,
+                              chequeNumber,
+                              creditAmount,
+                              "${_date.day}-${_date.month}-${_date.year}")
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          });
+                        }
+                        if(widget.place=="Jhangirpur"){
+                          await database
+                              .editJhangirpurTaxCredit(
+                              widget.shopId,
+                              widget.billId,
+                              widget.id,
+                              Bank,
+                              chequeNumber,
+                              creditAmount,
+                              "${_date.day}-${_date.month}-${_date.year}")
+                              .then((val) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pop(context);
+                          });
+                        }
                         }
                       },
                       child: Text("UPDATE"),

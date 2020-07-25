@@ -29,15 +29,13 @@ class _saleCreditState extends State<saleCredit> {
     setState(() {
       _date = picked;
     });
-    print("asd");
-    print(widget.shopId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("addCredit"),
+        title: Text("${widget.place}"),
         backgroundColor: Colors.pink[900],
       ),
       body: _isLoading

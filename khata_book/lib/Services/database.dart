@@ -526,7 +526,7 @@ class Database {
         .document(shopId)
         .collection("Tax")
         .document(billId)
-        .collection("credit")
+        .collection("Credit")
         .document(id)
         .updateData({
       "bank": bank,
@@ -566,7 +566,7 @@ class Database {
         .document(shopId)
         .collection("Tax")
         .document(billId)
-        .collection("credit")
+        .collection("Credit")
         .document(id)
         .updateData({
       "bank": bank,

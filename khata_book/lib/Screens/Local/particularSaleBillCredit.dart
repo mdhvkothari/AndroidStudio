@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/addCreditSaleBillDetails.dart';
+import 'package:khata_book/Screens/editInSaleCredit.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
-import '../editInSaleCredit.dart';
 
 class particularSaleBill extends StatefulWidget {
   String billId, shopId, billAmount,place;

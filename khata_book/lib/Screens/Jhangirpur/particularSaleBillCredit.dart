@@ -4,6 +4,8 @@ import 'package:khata_book/Screens/addCreditSaleBillDetails.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
+import '../editInSaleCredit.dart';
+
 class particularSaleBill extends StatefulWidget {
   String billId, shopId, billAmount,place;
 
@@ -70,7 +72,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
                           margin: EdgeInsets.all(20.0),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
-                            height: 95.0,
+                            height: 101.0,
                             child: Center(
                               child: Column(
                                 children: <Widget>[
@@ -107,7 +109,6 @@ class _particularSaleBillState extends State<particularSaleBill> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 10.0,),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.center,
@@ -116,6 +117,20 @@ class _particularSaleBillState extends State<particularSaleBill> {
                                         "Left: ${left(int.parse(widget.billAmount), int.parse(snapshot.data.documents[index].data["creditAmount"]))}",
                                         style: TextStyle(fontSize: 25.0),
                                       ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                                  editSaleCredit(
+                                                    shopId: widget.shopId,
+                                                    place: widget.place,
+                                                    billId: widget.billId,
+                                                    id:snapshot.data.documents[index]
+                                                        .data["id"] ,
+                                                  )));
+                                        },
+                                        icon: Icon(Icons.edit),
+                                      )
                                     ],
                                   ),
                                 ],

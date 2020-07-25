@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
-
 import 'loading.dart';
 
 class editSaleCredit extends StatefulWidget {
@@ -28,6 +27,7 @@ class _editSaleCreditState extends State<editSaleCredit> {
     setState(() {
       _date = picked;
     });
+
   }
 
   @override
@@ -121,7 +121,7 @@ class _editSaleCreditState extends State<editSaleCredit> {
                           }
                           if (widget.place == "Local") {
                             await database
-                                .editJhangirpurCreditSaleMoney(
+                                .editLocalCreditSaleMoney(
                                     widget.shopId,
                                     widget.billId,
                                     widget.id,

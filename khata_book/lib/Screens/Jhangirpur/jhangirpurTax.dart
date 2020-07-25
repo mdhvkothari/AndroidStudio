@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/Jhangirpur/particularTaxBillCredit.dart';
 import 'package:khata_book/Services/database.dart';
 
+import '../editTaxBillCredit.dart';
 import '../loading.dart';
 
 class jhangipurTax extends StatefulWidget {
-  String shopId,place;
+  String shopId,place,billId;
 
-  jhangipurTax({this.shopId,this.place});
+  jhangipurTax({this.shopId,this.place,this.billId});
 
   @override
   _jhangipurTaxState createState() => _jhangipurTaxState();
@@ -54,7 +55,7 @@ class _jhangipurTaxState extends State<jhangipurTax> {
                       margin: EdgeInsets.all(10.0),
                       child: Container(
                         margin: EdgeInsets.all(10.0),
-                        height: 80.0,
+                        height: 101.0,
                         child: Center(
                           child: Column(
                             children: <Widget>[
@@ -102,14 +103,32 @@ class _jhangipurTaxState extends State<jhangipurTax> {
                                       ],
                                     ),
                                   ]),
-                              SizedBox(
-                                height: 5.0,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    snapshot
+                                        .data.documents[index].data["comment"],
+                                    style: TextStyle(fontSize: 15.0),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  editTaxBillCredit(
+                                                    shopId: widget.shopId,
+                                                    place: widget.place,
+                                                    billId: widget.billId,
+                                                    id:snapshot.data.documents[index].data["id"] ,
+                                                  )));
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  )
+                                ],
                               ),
-                              Text(
-                                snapshot
-                                    .data.documents[index].data["comment"],
-                                style: TextStyle(fontSize: 15.0),
-                              ),
+
                             ],
                           ),
                         ),
