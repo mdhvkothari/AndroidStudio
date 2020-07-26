@@ -49,13 +49,13 @@ class _shopDetailsState extends State<shopDetails> {
                         },
                       ),
                       SizedBox(
-                        height: 20.0,
+                        height: 30.0,
                       ),
                       TextFormField(
                         decoration:
                             InputDecoration(hintText: 'Enter shopPhoneNumber'),
                         validator: (val) =>
-                            val.isEmpty ? "Enter shop phone Number" : null,
+                            val.isEmpty || val.length<10 ? "Enter shop phoneNumber or Check phoneNumber" : null,
                         onChanged: (val) {
                           setState(() {
                             shopNumber = val;

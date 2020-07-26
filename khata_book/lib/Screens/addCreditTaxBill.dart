@@ -38,127 +38,130 @@ class _taxCreditState extends State<taxCredit> {
       ),
       body: _isLoading ? Loading() : Form(
         key:  _key,
-        child: Container(
-            margin: EdgeInsets.all(20.0),
-            child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                    decoration: InputDecoration(
-                      hintText: "Enter Credit Amount",
+        child: SingleChildScrollView(
+          child: Container(
+              margin: EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    TextFormField(
+                      validator: (val) => val.isEmpty ? "Amount can't be empty" : null,
+                      decoration: InputDecoration(
+                        hintText: "Enter Credit Amount",
+                      ),
+                      onChanged: (val) {
+                        creditAmount = val;
+                      },
+                      keyboardType: TextInputType.number,
                     ),
-                    onChanged: (val) {
-                      creditAmount = val;
-                    },
-                    keyboardType: TextInputType.number,
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextFormField(
-                    validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                    decoration: InputDecoration(
-                      hintText: "Enter Cheque Number or RTGS",
+                    SizedBox(height: 20.0,),
+                    TextFormField(
+                      validator: (val) => val.isEmpty ? "Enter chequeNumber" : null,
+                      decoration: InputDecoration(
+                        hintText: "Enter Cheque Number or RTGS",
+                      ),
+                      onChanged: (val) {
+                        chequeNumber = val;
+                      },
                     ),
-                    onChanged: (val) {
-                      chequeNumber = val;
-                    },
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextFormField(
-                    validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                    decoration: InputDecoration(
-                      hintText: "Enter bank Name",
+                    SizedBox(height: 20.0,),
+                    TextFormField(
+                      validator: (val) => val.isEmpty ? "Enter Bank Name" : null,
+                      decoration: InputDecoration(
+                        hintText: "Enter bank Name",
+                      ),
+                      onChanged: (val) {
+                        Bank = val;
+                      },
                     ),
-                    onChanged: (val) {
-                      Bank = val;
-                    },
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.calendar_today,
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.calendar_today,
+                          ),
+                          onPressed: () {
+                            selectDate(context);
+                          },
+                          iconSize: 30.0,
                         ),
-                        onPressed: () {
-                          selectDate(context);
-                        },
-                        iconSize: 30.0,
-                      ),
-                      SizedBox(width: 20.0),
-                      Text(
-                        "$_date" != null
-                            ? "${_date.day}-${_date.month}-${_date.year}"
-                            : "SELECT DATE",
-                        style: TextStyle(fontSize: 25.0),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  RaisedButton(
-                    onPressed: () async {
-                      if (_key.currentState.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        id = randomAlpha(16);
-                        Map<String, dynamic> saleBillMap = {
-                          "creditAmount": creditAmount,
-                          "date": "${_date.day}-${_date.month}-${_date.year}",
-                          "chequeNumber" :chequeNumber,
-                          "bank":Bank,
-                          "id":id,
-                        };
-                        if(widget.place=="Jewar"){
-                          await database
-                              .addJewarCreditTaxMoney(
-                              widget.shopId, widget.billId,id, saleBillMap)
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                            Navigator.pop(context);
+                        SizedBox(width: 20.0),
+                        Text(
+                          "$_date" != null
+                              ? "${_date.day}-${_date.month}-${_date.year}"
+                              : "SELECT DATE",
+                          style: TextStyle(fontSize: 25.0),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0,),
+                    RaisedButton(
+                      onPressed: () async {
+                        if (_key.currentState.validate()) {
+                          setState(() {
+                            _isLoading = true;
                           });
-                        }
-                        if(widget.place=="Tappal"){
-                          await database
-                              .addTappalCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap,id)
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          id = randomAlpha(16);
+                          Map<String, dynamic> saleBillMap = {
+                            "creditAmount": creditAmount,
+                            "date": "${_date.day}-${_date.month}-${_date.year}",
+                            "chequeNumber" :chequeNumber,
+                            "bank":Bank,
+                            "id":id,
+                          };
+                          if(widget.place=="Jewar"){
+                            await database
+                                .addJewarCreditTaxMoney(
+                                widget.shopId, widget.billId,id, saleBillMap)
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        }
-                        if(widget.place=="Local"){
-                          await database
-                              .addLocalCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap,id)
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          }
+                          if(widget.place=="Tappal"){
+                            await database
+                                .addTappalCreditTaxMoney(
+                                widget.shopId, widget.billId, saleBillMap,id)
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        }
-                        if(widget.place=="Jhangirpur"){
-                          await database
-                              .addJhangirpurCreditTaxMoney(
-                              widget.shopId, widget.billId, saleBillMap,id)
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          }
+                          if(widget.place=="Local"){
+                            await database
+                                .addLocalCreditTaxMoney(
+                                widget.shopId, widget.billId, saleBillMap,id)
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
+                          }
+                          if(widget.place=="Jhangirpur"){
+                            await database
+                                .addJhangirpurCreditTaxMoney(
+                                widget.shopId, widget.billId, saleBillMap,id)
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
+                            });
+                          }
                         }
-                      }
-                    },
-                    child: Text("Add"),
-                  )
-                ])
+                      },
+                      child: Text("Add"),
+                    )
+                  ])
+          ),
         ),
       ),
     );

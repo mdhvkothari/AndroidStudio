@@ -3,9 +3,9 @@ import 'package:khata_book/Services/database.dart';
 import 'loading.dart';
 
 class editSaleCredit extends StatefulWidget {
-  String shopId, billId, place, id;
+  String shopId, billId, place, id,amount;
 
-  editSaleCredit({this.shopId, this.place, this.billId, this.id});
+  editSaleCredit({this.shopId, this.place, this.billId, this.id,this.amount});
 
   @override
   _editSaleCreditState createState() => _editSaleCreditState();
@@ -45,6 +45,7 @@ class _editSaleCreditState extends State<editSaleCredit> {
                   margin: EdgeInsets.all(20.0),
                   child: Column(children: <Widget>[
                     TextFormField(
+                      initialValue: widget.amount,
                       validator: (val) => val.isEmpty ? "Enter Amount" : null,
                       decoration: InputDecoration(
                         hintText: "Enter Credit Amount",
@@ -90,6 +91,9 @@ class _editSaleCreditState extends State<editSaleCredit> {
                             "id": id
                           };
                           if (widget.place == "Jewar") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
                             await database
                                 .editJewarCreditSaleMoney(
                                     widget.shopId,
@@ -105,6 +109,9 @@ class _editSaleCreditState extends State<editSaleCredit> {
                             });
                           }
                           if (widget.place == "Tappal") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
                             await database
                                 .editTappalCreditSaleMoney(
                                     widget.shopId,
@@ -120,6 +127,9 @@ class _editSaleCreditState extends State<editSaleCredit> {
                             });
                           }
                           if (widget.place == "Local") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
                             await database
                                 .editLocalCreditSaleMoney(
                                     widget.shopId,
@@ -135,6 +145,9 @@ class _editSaleCreditState extends State<editSaleCredit> {
                             });
                           }
                           if (widget.place == "Jhangirpur") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
                             await database
                                 .editJhangirpurCreditSaleMoney(
                                     widget.shopId,

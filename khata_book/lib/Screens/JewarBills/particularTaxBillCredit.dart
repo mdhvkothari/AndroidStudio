@@ -140,10 +140,68 @@ class _particularTaxBillState extends State<particularTaxBill> {
                                                         shopId: widget.shopId,
                                                         place: widget.place,
                                                         billId: widget.billId,
-                                                        id:snapshot.data.documents[index].data["id"] ,
+                                                        id: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["id"],
+                                                        amount:
+                                                            snapshot
+                                                                    .data
+                                                                    .documents[
+                                                                        index]
+                                                                    .data[
+                                                                "creditAmount"],
+                                                        chequeNumber:
+                                                            snapshot
+                                                                    .data
+                                                                    .documents[
+                                                                        index]
+                                                                    .data[
+                                                                "chequeNumber"],
+                                                        bank: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["bank"],
                                                       )));
                                         },
                                         icon: Icon(Icons.edit),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text("Delete"),
+                                                  content: Text(
+                                                      "You want to delete: ${snapshot.data.documents[index].data["creditAmount"]}"),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      child: Text("No"),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    FlatButton(
+                                                      child: Text("Yes"),
+                                                      onPressed: () async {
+                                                        Navigator.pop(context);
+                                                        await database
+                                                            .deleteJewarCreditTaxMoney(
+                                                          widget.shopId,
+                                                          widget.billId,
+                                                          snapshot
+                                                              .data
+                                                              .documents[index]
+                                                              .data["id"],
+                                                        );
+                                                      },
+                                                    )
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        icon: Icon(Icons.delete),
                                       )
                                     ],
                                   ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
@@ -41,135 +42,139 @@ class _addingSaleBillsState extends State<addingSaleBills> {
             ? Loading()
             : Form(
                 key: _key,
-                child: Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(children: <Widget>[
-                      TextFormField(
-                        validator: (val) =>
-                            val.isEmpty ? "Enter bill number" : null,
-                        decoration: InputDecoration(
-                          hintText: "Enter bill number",
+                child: SingleChildScrollView(
+                  child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                        TextFormField(
+                          validator: (val) =>
+                              val.isEmpty ? "Enter bill number" : null,
+                          decoration: InputDecoration(
+                            hintText: "Enter bill number",
+                          ),
+                          onChanged: (val) {
+                            billNumber = val;
+                          },
+                          keyboardType: TextInputType.number,
                         ),
-                        onChanged: (val) {
-                          billNumber = val;
-                        },
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        validator: (val) =>
-                            val.isEmpty ? "Enter some comment" : null,
-                        decoration: InputDecoration(
-                          hintText: "Comment",
+                        SizedBox(
+                          height: 10.0,
                         ),
-                        onChanged: (val) {
-                          comment = val;
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        validator: (val) =>
-                            val.isEmpty ? "Enter bill amount" : null,
-                        decoration: InputDecoration(
-                          hintText: "Enter bill amount",
+                        TextFormField(
+                          validator: (val) =>
+                              val.isEmpty ? "Enter some comment" : null,
+                          decoration: InputDecoration(
+                            hintText: "Comment",
+                          ),
+                          onChanged: (val) {
+                            comment = val;
+                          },
                         ),
-                        onChanged: (val) {
-                          billAmount = val;
-                        },
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(
-                              Icons.calendar_today,
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        TextFormField(
+                          validator: (val) =>
+                              val.isEmpty ? "Enter bill amount" : null,
+                          decoration: InputDecoration(
+                            hintText: "Enter bill amount",
+                          ),
+                          onChanged: (val) {
+                            billAmount = val;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(
+                                Icons.calendar_today,
+                              ),
+                              onPressed: () {
+                                selectDate(context);
+                              },
+                              iconSize: 30.0,
                             ),
-                            onPressed: () {
-                              selectDate(context);
-                            },
-                            iconSize: 30.0,
-                          ),
-                          SizedBox(width: 20.0),
-                          Text(
-                            "$_date" != null
-                                ? "${_date.day}-${_date.month}-${_date.year}"
-                                : "SELECT DATE",
-                            style: TextStyle(fontSize: 25.0),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      RaisedButton(
-                        onPressed: () async {
-                          if (_key.currentState.validate()) {
-                            setState(() {
-                              _isLoading = true;
-                            });
-                            id = randomAlpha(16);
-                            Map<String, dynamic> saleBillMap = {
-                              "billNumber": billNumber,
-                              "id": id,
-                              "date":
-                                  "${_date.day}-${_date.month}-${_date.year}",
-                              "billAmount": billAmount,
-                              "comment": comment,
-                            };
-                            if (widget.place == "Jewar") {
-                              await database
-                                  .addJewarSaleBill(
-                                      saleBillMap, id, widget.shopId)
-                                  .then((val) {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                Navigator.pop(context);
+                            SizedBox(width: 20.0),
+                            Text(
+                              "$_date" != null
+                                  ? "${_date.day}-${_date.month}-${_date.year}"
+                                  : "SELECT DATE",
+                              style: TextStyle(fontSize: 25.0),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.0,),
+                        RaisedButton(
+                          onPressed: () async {
+                            if (_key.currentState.validate()) {
+                              setState(() {
+                                _isLoading = true;
                               });
-                            }
-                            if (widget.place == "Tappal") {
-                              await database
-                                  .addTappalSaleBill(
-                                      saleBillMap, id, widget.shopId)
-                                  .then((val) {
-                                setState(() {
-                                  _isLoading = false;
+                              id = randomAlpha(16);
+                              Map<String, dynamic> saleBillMap = {
+                                "billNumber": billNumber,
+                                "id": id,
+                                "date":
+                                    "${_date.day}-${_date.month}-${_date.year}",
+                                "billAmount": billAmount,
+                                "comment": comment,
+                              };
+                              if (widget.place == "Jewar") {
+                                await database
+                                    .addJewarSaleBill(
+                                        saleBillMap, id, widget.shopId)
+                                    .then((val) {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.pop(context);
                                 });
-                                Navigator.pop(context);
-                              });
-                            }
-                            if (widget.place == "Local") {
-                              await database
-                                  .addLocalSaleBill(
-                                  saleBillMap, id, widget.shopId)
-                                  .then((val) {
-                                setState(() {
-                                  _isLoading = false;
+                              }
+                              if (widget.place == "Tappal") {
+                                await database
+                                    .addTappalSaleBill(
+                                        saleBillMap, id, widget.shopId)
+                                    .then((val) {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.pop(context);
                                 });
-                                Navigator.pop(context);
-                              });
-                            }
-                            if (widget.place == "Jhangirpur") {
-                              await database
-                                  .addJhangirpurSaleBill(
-                                  saleBillMap, id, widget.shopId)
-                                  .then((val) {
-                                setState(() {
-                                  _isLoading = false;
+                              }
+                              if (widget.place == "Local") {
+                                await database
+                                    .addLocalSaleBill(
+                                    saleBillMap, id, widget.shopId)
+                                    .then((val) {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.pop(context);
                                 });
-                                Navigator.pop(context);
-                              });
-                            }
+                              }
+                              if (widget.place == "Jhangirpur") {
+                                await database
+                                    .addJhangirpurSaleBill(
+                                    saleBillMap, id, widget.shopId)
+                                    .then((val) {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.pop(context);
+                                });
+                              }
 
-                          }
-                        },
-                        child: Text("Add"),
-                      )
-                    ]))));
+                            }
+                          },
+                          child: Text("Add"),
+                        )
+                      ])),
+                )));
   }
 }

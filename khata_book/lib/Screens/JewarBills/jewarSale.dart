@@ -56,7 +56,7 @@ class _jewarSaleState extends State<jewarSale> {
                         margin: EdgeInsets.all(10.0),
                         child: Container(
                           margin: EdgeInsets.all(10.0),
-                          height: 101.0,
+                          height: 140.0,
                           child: Center(
                             child: Column(
                               children: <Widget>[
@@ -97,22 +97,27 @@ class _jewarSaleState extends State<jewarSale> {
                                           style: TextStyle(fontSize: 18.0),
                                         ),
                                         Text(
-                                          "${snapshot.data.documents[index]
-                                              .data["date"]}",
+                                          "${snapshot.data.documents[index].data["date"]}",
                                           style: TextStyle(fontSize: 25.0),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 10.0,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
                                       snapshot.data.documents[index]
                                           .data["comment"],
-                                      style: TextStyle(fontSize: 15.0),
+                                      style: TextStyle(fontSize: 20.0),
                                     ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
                                     IconButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -130,12 +135,56 @@ class _jewarSaleState extends State<jewarSale> {
                                                           .data["billNumber"],
                                                       place: widget.place,
                                                       shopId: widget.shopId,
+                                                      amount: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["billAmount"],
+                                                      comment: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["comment"],
                                                     )));
                                       },
                                       icon: Icon(Icons.edit),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text("Delete"),
+                                                content: Text(
+                                                    "You want to delete ${snapshot.data.documents[index].data["billNumber"]}"),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text("No"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  FlatButton(
+                                                    child: Text("Yes"),
+                                                    onPressed: () async {
+                                                      Navigator.pop(context);
+                                                      await database
+                                                          .deleteJewarSaleBill(
+                                                        snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["id"],
+                                                        widget.shopId
+                                                      );
+                                                    },
+                                                  )
+                                                ],
+                                              );
+                                            });
+                                      },
+                                      icon: Icon(Icons.delete),
                                     )
                                   ],
-                                ),
+                                )
                               ],
                             ),
                           ),

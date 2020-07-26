@@ -57,7 +57,7 @@ class _tappalSaleState extends State<tappalSale> {
                         margin: EdgeInsets.all(10.0),
                         child: Container(
                           margin: EdgeInsets.all(10.0),
-                          height: 106.0,
+                          height: 135.0,
                           child: Center(
                             child: Column(
                               children: <Widget>[
@@ -107,16 +107,16 @@ class _tappalSaleState extends State<tappalSale> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 5.0,
+                                  height: 10.0,
+                                ),
+                                Text(
+                                  snapshot.data.documents[index]
+                                      .data["comment"],
+                                  style: TextStyle(fontSize: 20.0),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
-                                      snapshot.data.documents[index]
-                                          .data["comment"],
-                                      style: TextStyle(fontSize: 15.0),
-                                    ),
                                     IconButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -134,9 +134,53 @@ class _tappalSaleState extends State<tappalSale> {
                                                           .data["billNumber"],
                                                       place: widget.place,
                                                       shopId: widget.shopId,
+                                                      amount: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["billAmount"],
+                                                      comment: snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["comment"],
                                                     )));
                                       },
                                       icon: Icon(Icons.edit),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text("Delete"),
+                                                content: Text(
+                                                    "You want to delete ${snapshot.data.documents[index].data["billNumber"]}"),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text("No"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  FlatButton(
+                                                    child: Text("Yes"),
+                                                    onPressed: () async {
+                                                      Navigator.pop(context);
+                                                      await database
+                                                          .deleteTappalSaleBill(
+                                                          snapshot
+                                                              .data
+                                                              .documents[index]
+                                                              .data["id"],
+                                                          widget.shopId
+                                                      );
+                                                    },
+                                                  )
+                                                ],
+                                              );
+                                            });
+                                      },
+                                      icon: Icon(Icons.delete),
                                     )
                                   ],
                                 ),

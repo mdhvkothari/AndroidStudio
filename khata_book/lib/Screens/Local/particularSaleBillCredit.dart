@@ -5,11 +5,10 @@ import 'package:khata_book/Screens/editInSaleCredit.dart';
 import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 
-
 class particularSaleBill extends StatefulWidget {
-  String billId, shopId, billAmount,place;
+  String billId, shopId, billAmount, place;
 
-  particularSaleBill({this.billId, this.shopId, this.billAmount,this.place});
+  particularSaleBill({this.billId, this.shopId, this.billAmount, this.place});
 
   @override
   _particularSaleBillState createState() => _particularSaleBillState();
@@ -55,7 +54,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
                     builder: (context) => saleCredit(
                           shopId: widget.shopId,
                           billId: widget.billId,
-                      place: widget.place,
+                          place: widget.place,
                         )));
           },
         ),
@@ -72,7 +71,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
                           margin: EdgeInsets.all(20.0),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
-                            height: 101.0,
+                            height: 140.0,
                             child: Center(
                               child: Column(
                                 children: <Widget>[
@@ -109,27 +108,77 @@ class _particularSaleBillState extends State<particularSaleBill> {
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    "Left: ${left(int.parse(widget.billAmount), int.parse(snapshot.data.documents[index].data["creditAmount"]))}",
+                                    style: TextStyle(fontSize: 25.0),
+                                  ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        "Left: ${left(int.parse(widget.billAmount), int.parse(snapshot.data.documents[index].data["creditAmount"]))}",
-                                        style: TextStyle(fontSize: 25.0),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      editSaleCredit(
+                                                        shopId: widget.shopId,
+                                                        place: widget.place,
+                                                        billId: widget.billId,
+                                                        id: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["id"],
+                                                        amount:
+                                                            snapshot
+                                                                    .data
+                                                                    .documents[
+                                                                        index]
+                                                                    .data[
+                                                                "creditAmount"],
+                                                      )));
+                                        },
+                                        icon: Icon(Icons.edit),
                                       ),
                                       IconButton(
                                         onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                                  editSaleCredit(
-                                                    shopId: widget.shopId,
-                                                    place: widget.place,
-                                                    billId: widget.billId,
-                                                    id:snapshot.data.documents[index]
-                                                        .data["id"] ,
-                                                  )));
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text("Delete"),
+                                                  content: Text(
+                                                      "You want to delete ${snapshot.data.documents[index].data["creditAmount"]}"),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      child: Text("No"),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    FlatButton(
+                                                      child: Text("Yes"),
+                                                      onPressed: () async {
+                                                        Navigator.pop(context);
+                                                        await database
+                                                            .deleteLocalCreditSaleMoney(
+                                                          widget.shopId,
+                                                          widget.billId,
+                                                          snapshot
+                                                              .data
+                                                              .documents[index]
+                                                              .data["id"],
+                                                        );
+                                                      },
+                                                    )
+                                                  ],
+                                                );
+                                              });
                                         },
-                                        icon: Icon(Icons.edit),
+                                        icon: Icon(Icons.delete),
                                       )
                                     ],
                                   ),

@@ -9,8 +9,8 @@ import 'package:khata_book/TownSceens/jewar.dart';
 import 'loading.dart';
 
 class editShopData extends StatefulWidget {
-  String placeName,shopName,id;
-  editShopData({this.placeName,this.shopName,this.id});
+  String placeName,shopName,id,phoneNumber;
+  editShopData({this.placeName,this.shopName,this.id,this.phoneNumber});
   @override
   _editShopDataState createState() => _editShopDataState();
 }
@@ -38,9 +38,10 @@ class _editShopDataState extends State<editShopData> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  initialValue: widget.shopName,
                   decoration: InputDecoration(hintText: 'Enter shopName'),
                   validator: (val) =>
-                  val.isEmpty ? "Enter shopName first" : null,
+                  val.isEmpty ? "Enter shopName first" :null,
                   onChanged: (val) {
                     setState(() {
                       shopName = val;
@@ -51,10 +52,11 @@ class _editShopDataState extends State<editShopData> {
                   height: 20.0,
                 ),
                 TextFormField(
+                  initialValue: widget.phoneNumber,
                   decoration:
                   InputDecoration(hintText: 'Enter shopPhoneNumber'),
                   validator: (val) =>
-                  val.isEmpty || val.length==11 ? "Enter shop phone Number or Check phone Number" : null,
+                  val.isEmpty || val.length<10 ? "Enter shop phoneNumber or Check phoneNumber" :null,
                   onChanged: (val) {
                     setState(() {
                       shopNumber = val;
@@ -70,6 +72,12 @@ class _editShopDataState extends State<editShopData> {
                         _isLoading = true;
                       });
                       if (widget.placeName == "Jewar") {
+                        if (shopName == null){
+                          shopName = widget.shopName;
+                        }
+                        if(shopNumber == null){
+                          shopNumber = widget.phoneNumber;
+                        }
                         await database
                             .updateJewarShop(shopName, shopNumber,widget.id)
                             .then((val) {
@@ -83,6 +91,12 @@ class _editShopDataState extends State<editShopData> {
                         });
                       }
                       if (widget.placeName == "Tappal") {
+                        if (shopName == null){
+                          shopName = widget.shopName;
+                        }
+                        if(shopNumber == null){
+                          shopNumber = widget.phoneNumber;
+                        }
                         await database
                             .updateTappalShop(shopName, shopNumber,widget.id)
                             .then((val) {
@@ -96,6 +110,12 @@ class _editShopDataState extends State<editShopData> {
                         });
                       }
                       if (widget.placeName == "Local") {
+                        if (shopName == null){
+                          shopName = widget.shopName;
+                        }
+                        if(shopNumber == null){
+                          shopNumber = widget.phoneNumber;
+                        }
                         await database
                             .updateLocalShop(shopName, shopNumber,widget.id)
                             .then((val) {
@@ -109,6 +129,12 @@ class _editShopDataState extends State<editShopData> {
                         });
                       }
                       if (widget.placeName == "Jhangirpur") {
+                        if (shopName == null){
+                          shopName = widget.shopName;
+                        }
+                        if(shopNumber == null){
+                          shopNumber = widget.phoneNumber;
+                        }
                         await database
                             .updateJhangirpurShop(shopName, shopNumber,widget.id)
                             .then((val) {

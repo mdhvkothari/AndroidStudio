@@ -31,10 +31,10 @@ class _particularSaleBillState extends State<particularSaleBill> {
     });
   }
 
-  left(int billAmount, int credited) {
+  left(int credited) {
     AmountCredited = AmountCredited + credited;
     int leftAmount;
-    leftAmount = billAmount - AmountCredited;
+    leftAmount = int.parse(widget.billAmount) - AmountCredited;
     return leftAmount;
   }
 
@@ -51,8 +51,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        saleCredit(
+                    builder: (context) => saleCredit(
                           shopId: widget.shopId,
                           billId: widget.billId,
                           place: widget.place,
@@ -65,83 +64,130 @@ class _particularSaleBillState extends State<particularSaleBill> {
               return snapshot.data == null
                   ? Loading()
                   : ListView.builder(
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 5.0,
-                      margin: EdgeInsets.all(20.0),
-                      child: Container(
-                        margin: EdgeInsets.all(10.0),
-                        height: 101.0,
-                        child: Center(
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          elevation: 5.0,
+                          margin: EdgeInsets.all(20.0),
+                          child: Container(
+                            margin: EdgeInsets.all(10.0),
+                            height: 140.0,
+                            child: Center(
+                              child: Column(
                                 children: <Widget>[
-                                  Column(
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      Text(
-                                        "Credited Amount:",
-                                        style: TextStyle(fontSize: 18.0),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(
+                                            "Credited Amount:",
+                                            style: TextStyle(fontSize: 18.0),
+                                          ),
+                                          Text(
+                                            snapshot.data.documents[index]
+                                                .data["creditAmount"],
+                                            style: TextStyle(fontSize: 27.0),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        snapshot.data.documents[index]
-                                            .data["creditAmount"],
-                                        style: TextStyle(fontSize: 27.0),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "Date:",
+                                            style: TextStyle(fontSize: 20.0),
+                                          ),
+                                          Text(
+                                            "${snapshot.data.documents[index].data["date"]}",
+                                            style: TextStyle(fontSize: 25.0),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        "Date:",
-                                        style: TextStyle(fontSize: 20.0),
-                                      ),
-                                      Text(
-                                        "${snapshot.data.documents[index]
-                                            .data["date"]}",
-                                        style: TextStyle(fontSize: 25.0),
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: 10.0,
                                   ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: <Widget>[
                                   Text(
-                                    "Left: ${left(int.parse(widget.billAmount),
-                                        int.parse(snapshot.data.documents[index]
-                                            .data["creditAmount"]))}",
+                                    "Left: ${left(int.parse(snapshot.data.documents[index].data["creditAmount"]))}",
                                     style: TextStyle(fontSize: 25.0),
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) =>
-                                              editSaleCredit(
-                                                shopId: widget.shopId,
-                                                place: widget.place,
-                                                billId: widget.billId,
-                                                id:snapshot.data.documents[index]
-                                                    .data["id"] ,
-                                              )));
-                                    },
-                                    icon: Icon(Icons.edit),
-                                  )
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      editSaleCredit(
+                                                        shopId: widget.shopId,
+                                                        place: widget.place,
+                                                        billId: widget.billId,
+                                                        id: snapshot
+                                                            .data
+                                                            .documents[index]
+                                                            .data["id"],
+                                                        amount:
+                                                            snapshot
+                                                                    .data
+                                                                    .documents[
+                                                                        index]
+                                                                    .data[
+                                                                "creditAmount"],
+                                                      )));
+                                        },
+                                        icon: Icon(Icons.edit),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text("Delete"),
+                                                  content: Text(
+                                                      "You want to delete ${snapshot.data.documents[index].data["creditAmount"]}"),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      child: Text("No"),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    FlatButton(
+                                                      child: Text("Yes"),
+                                                      onPressed: () async {
+                                                        Navigator.pop(context);
+                                                        await database
+                                                            .deleteJewarCreditSaleMoney(
+                                                          widget.shopId,
+                                                          widget.billId,
+                                                          snapshot
+                                                              .data
+                                                              .documents[index]
+                                                              .data["id"],
+                                                        );
+                                                      },
+                                                    )
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        icon: Icon(Icons.delete),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  });
+                        );
+                      });
             }));
   }
 }

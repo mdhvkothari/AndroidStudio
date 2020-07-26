@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "408970902362",
+    "firebase_url": "https://ratebook-b01eb.firebaseio.com",
+    "project_id": "ratebook-b01eb",
+    "storage_bucket": "ratebook-b01eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408970902362:android:9c0c577497b0b347f6d163",
+        "android_client_info": {
+          "package_name": "mdhv.com.rate_book"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408970902362-ccrp4rbal93du88ahg0ehfn87r3relhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mdhv.com.rate_book",
+            "certificate_hash": "e359049d82079ed130eec247feb2156d1319e787"
+          }
+        },
+        {
+          "client_id": "408970902362-i1absa7vam0c84j2htv4fj1obtv26e75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjE0mGKPYXRhiYQwTUN0iWQ6f8cMMdq0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408970902362-i1absa7vam0c84j2htv4fj1obtv26e75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

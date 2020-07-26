@@ -1,13 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khata_book/Services/database.dart';
-import 'package:random_string/random_string.dart';
-
 import 'loading.dart';
 
 class editTaxBillCredit extends StatefulWidget {
-  String shopId, billId, place, id;
+  String shopId, billId, place, id, amount, chequeNumber, bank;
 
-  editTaxBillCredit({this.shopId, this.billId, this.place, this.id});
+  editTaxBillCredit(
+      {this.shopId,
+      this.billId,
+      this.place,
+      this.id,
+      this.amount,
+      this.bank,
+      this.chequeNumber});
 
   @override
   _editTaxBillCreditState createState() => _editTaxBillCreditState();
@@ -45,64 +51,73 @@ class _editTaxBillCreditState extends State<editTaxBillCredit> {
               child: Container(
                   margin: EdgeInsets.all(20.0),
                   child: Column(children: <Widget>[
-                    TextFormField(
-                      validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                      decoration: InputDecoration(
-                        hintText: "Enter Credit Amount",
-                      ),
-                      onChanged: (val) {
-                        creditAmount = val;
-                      },
-                      keyboardType: TextInputType.number,
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextFormField(
-                      validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                      decoration: InputDecoration(
-                        hintText: "Enter Cheque Number or RTGS",
-                      ),
-                      onChanged: (val) {
-                        chequeNumber = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextFormField(
-                      validator: (val) => val.isEmpty ? "Enter Amount" : null,
-                      decoration: InputDecoration(
-                        hintText: "Enter bank Name",
-                      ),
-                      onChanged: (val) {
-                        Bank = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
+                    Column(
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(
-                            Icons.calendar_today,
+                        TextFormField(
+                          initialValue: widget.amount,
+                          validator: (val) =>
+                              val.isEmpty ? "Enter Amount" : null,
+                          decoration: InputDecoration(
+                            hintText: "Enter Credit Amount",
                           ),
-                          onPressed: () {
-                            selectDate(context);
+                          onChanged: (val) {
+                            creditAmount = val;
                           },
-                          iconSize: 30.0,
+                          keyboardType: TextInputType.number,
                         ),
-                        SizedBox(width: 20.0),
-                        Text(
-                          "$_date" != null
-                              ? "${_date.day}-${_date.month}-${_date.year}"
-                              : "SELECT DATE",
-                          style: TextStyle(fontSize: 25.0),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          initialValue: widget.chequeNumber,
+                          validator: (val) =>
+                              val.isEmpty ? "Enter cheque Number" : null,
+                          decoration: InputDecoration(
+                            hintText: "Enter Cheque Number or RTGS",
+                          ),
+                          onChanged: (val) {
+                            chequeNumber = val;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          initialValue: widget.bank,
+                          validator: (val) =>
+                              val.isEmpty ? "Enter bankName" : null,
+                          decoration: InputDecoration(
+                            hintText: "Enter bank Name",
+                          ),
+                          onChanged: (val) {
+                            Bank = val;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(
+                                Icons.calendar_today,
+                              ),
+                              onPressed: () {
+                                selectDate(context);
+                              },
+                              iconSize: 30.0,
+                            ),
+                            SizedBox(width: 20.0),
+                            Text(
+                              "$_date" != null
+                                  ? "${_date.day}-${_date.month}-${_date.year}"
+                                  : "SELECT DATE",
+                              style: TextStyle(fontSize: 25.0),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Spacer(),
                     RaisedButton(
                       onPressed: () async {
                         if (_key.currentState.validate()) {
@@ -110,6 +125,15 @@ class _editTaxBillCreditState extends State<editTaxBillCredit> {
                             _isLoading = true;
                           });
                           if (widget.place == "Jewar") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
+                            if(chequeNumber == null){
+                              chequeNumber = widget.chequeNumber;
+                            }
+                            if(Bank == null){
+                              Bank = widget.bank;
+                            }
                             await database
                                 .editJewarTaxCredit(
                                     widget.shopId,
@@ -126,56 +150,84 @@ class _editTaxBillCreditState extends State<editTaxBillCredit> {
                               Navigator.pop(context);
                             });
                           }
-                        if(widget.place=="Tappal"){
-                          await database
-                              .editTappalTaxCredit(widget.shopId,
-                              widget.billId,
-                              widget.id,
-                              Bank,
-                              chequeNumber,
-                              creditAmount,
-                              "${_date.day}-${_date.month}-${_date.year}")
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          if (widget.place == "Tappal") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
+                            if(chequeNumber == null){
+                              chequeNumber = widget.chequeNumber;
+                            }
+                            if(Bank == null){
+                              Bank = widget.bank;
+                            }
+                            await database
+                                .editTappalTaxCredit(
+                                    widget.shopId,
+                                    widget.billId,
+                                    widget.id,
+                                    Bank,
+                                    chequeNumber,
+                                    creditAmount,
+                                    "${_date.day}-${_date.month}-${_date.year}")
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        }
-                        if(widget.place=="Local"){
-                          await database
-                              .editLocalTaxCredit(
-                              widget.shopId,
-                              widget.billId,
-                              widget.id,
-                              Bank,
-                              chequeNumber,
-                              creditAmount,
-                              "${_date.day}-${_date.month}-${_date.year}")
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          }
+                          if (widget.place == "Local") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
+                            if(chequeNumber == null){
+                              chequeNumber = widget.chequeNumber;
+                            }
+                            if(Bank == null){
+                              Bank = widget.bank;
+                            }
+                            await database
+                                .editLocalTaxCredit(
+                                    widget.shopId,
+                                    widget.billId,
+                                    widget.id,
+                                    Bank,
+                                    chequeNumber,
+                                    creditAmount,
+                                    "${_date.day}-${_date.month}-${_date.year}")
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        }
-                        if(widget.place=="Jhangirpur"){
-                          await database
-                              .editJhangirpurTaxCredit(
-                              widget.shopId,
-                              widget.billId,
-                              widget.id,
-                              Bank,
-                              chequeNumber,
-                              creditAmount,
-                              "${_date.day}-${_date.month}-${_date.year}")
-                              .then((val) {
-                            setState(() {
-                              _isLoading = false;
+                          }
+                          if (widget.place == "Jhangirpur") {
+                            if(creditAmount==null){
+                              creditAmount = widget.amount;
+                            }
+                            if(chequeNumber == null){
+                              chequeNumber = widget.chequeNumber;
+                            }
+                            if(Bank == null){
+                              Bank = widget.bank;
+                            }
+                            await database
+                                .editJhangirpurTaxCredit(
+                                    widget.shopId,
+                                    widget.billId,
+                                    widget.id,
+                                    Bank,
+                                    chequeNumber,
+                                    creditAmount,
+                                    "${_date.day}-${_date.month}-${_date.year}")
+                                .then((val) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        }
+                          }
                         }
                       },
                       child: Text("UPDATE"),

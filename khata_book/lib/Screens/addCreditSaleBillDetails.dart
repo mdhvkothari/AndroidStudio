@@ -56,7 +56,7 @@ class _saleCreditState extends State<saleCredit> {
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(
-                      height: 20.0,
+                      height: 30.0,
                     ),
                     Row(
                       children: <Widget>[
@@ -69,7 +69,7 @@ class _saleCreditState extends State<saleCredit> {
                           },
                           iconSize: 30.0,
                         ),
-                        SizedBox(width: 20.0),
+                        SizedBox(width: 30.0),
                         Text(
                           "$_date" != null
                               ? "${_date.day}-${_date.month}-${_date.year}"
@@ -92,6 +92,7 @@ class _saleCreditState extends State<saleCredit> {
                             "id":id
                           };
                           if (widget.place == "Jewar") {
+
                             await database
                                 .addJewarCreditSaleMoney(
                                     widget.shopId, widget.billId, saleBillMap,id)
@@ -103,6 +104,7 @@ class _saleCreditState extends State<saleCredit> {
                             });
                           }
                           if (widget.place == "Tappal") {
+
                             await database
                                 .addTappalCreditSaleMoney(
                                     widget.shopId, widget.billId, saleBillMap,id)
@@ -114,6 +116,7 @@ class _saleCreditState extends State<saleCredit> {
                             });
                           }
                           if (widget.place == "Local") {
+
                             await database
                                 .addLocalCreditSaleMoney(
                                     widget.shopId, widget.billId, saleBillMap,id)

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:khata_book/Screens/Jhangirpur/shopBillDetails.dart';
 import 'package:khata_book/Screens/addingShopDetails.dart';
 import 'package:khata_book/Screens/editShopData.dart';
+import 'package:khata_book/Screens/loading.dart';
 import 'package:khata_book/Services/database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,7 +49,7 @@ class _JhangirpurState extends State<Jhangirpur> {
           stream: localShop,
           builder: (context, snapshot) {
             return snapshot.data == null
-                ? Container()
+                ? Loading()
                 : ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
@@ -67,19 +68,23 @@ class _JhangirpurState extends State<Jhangirpur> {
                       elevation: 5.0,
                       margin: EdgeInsets.all(10.0),
                       child: Container(
-                        height: 50.0,
+                        height: 95.0,
                         child: Center(
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
+                          child: Column(
                             children: <Widget>[
-                              Text(
-                                snapshot
-                                    .data.documents[index].data["shopName"],
-                                style: TextStyle(fontSize: 27.0),
-                              ),
-                              SizedBox(width: 40.0,),
                               Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    snapshot
+                                        .data.documents[index].data["shopName"],
+                                    style: TextStyle(fontSize: 27.0),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   IconButton(
                                     onPressed: ()async {
@@ -104,13 +109,58 @@ class _JhangirpurState extends State<Jhangirpur> {
                                                         .data
                                                         .documents[index]
                                                         .data["id"],
+                                                    phoneNumber: snapshot
+                                                        .data
+                                                        .documents[index]
+                                                        .data["phone"],
                                                   )));
                                     },
                                     icon: Icon(Icons.edit),
                                   ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Delete"),
+                                              content:
+                                              Text(
+                                                  "You want to delete ${snapshot
+                                                      .data
+                                                      .documents[index]
+                                                      .data["shopName"]}"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("No"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                FlatButton(
+                                                  child: Text("Yes"),
+                                                  onPressed: () async {
+                                                    Navigator.pop(context);
+                                                    await database
+                                                        .deleteJhangirpurShop(
+                                                      snapshot
+                                                          .data
+                                                          .documents[index]
+                                                          .data["id"],
+                                                    );
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    icon: Icon(Icons.delete),
+                                  )
                                 ],
                               )
                             ],
+
+
                           ),
                         ),
                       ),
