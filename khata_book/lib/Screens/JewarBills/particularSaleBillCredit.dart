@@ -71,7 +71,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
                           margin: EdgeInsets.all(20.0),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
-                            height: 140.0,
+                            height: 150.0,
                             child: Center(
                               child: Column(
                                 children: <Widget>[

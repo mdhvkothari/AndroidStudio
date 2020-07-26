@@ -55,7 +55,7 @@ class _tappalTaxState extends State<tappalTax> {
                           margin: EdgeInsets.all(10.0),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
-                            height: 125.0,
+                            height: 140.0,
                             child: Center(
                               child: Column(
                                 children: <Widget>[

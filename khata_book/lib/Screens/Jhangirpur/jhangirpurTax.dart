@@ -56,7 +56,7 @@ class _jhangipurTaxState extends State<jhangipurTax> {
                       margin: EdgeInsets.all(10.0),
                       child: Container(
                         margin: EdgeInsets.all(10.0),
-                        height: 145.0,
+                        height: 155.0,
                         child: Center(
                           child: Column(
                             children: <Widget>[

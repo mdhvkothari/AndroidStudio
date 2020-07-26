@@ -56,7 +56,7 @@ class _localSaleState extends State<localSale> {
                     margin: EdgeInsets.all(10.0),
                     child: Container(
                       margin: EdgeInsets.all(10.0),
-                      height: 135.0,
+                      height: 145.0,
                       child: Center(
                         child: Column(
                           children: <Widget>[
