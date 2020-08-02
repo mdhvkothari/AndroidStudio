@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 import 'package:rate_book/Screens/loading.dart';
 import 'package:rate_book/Service/database.dart';
 
@@ -11,7 +12,7 @@ class addingData extends StatefulWidget {
 class _addingDataState extends State<addingData> {
   final _key = GlobalKey<FormState>();
   bool _loading = false;
-  String city, item, rate;
+  String city, item, rate,id,id2;
   DateTime _date = DateTime.now();
   Database database = Database();
 
@@ -152,15 +153,17 @@ class _addingDataState extends State<addingData> {
                             setState(() {
                               _loading = true;
                             });
+                            id = randomAlpha(18);
+                            id2 = randomAlpha(18);
                             Map<String, dynamic> addingDataToMap = {
                               "rate": rate,
                               "date":
                                   "${_date.day}-${_date.month}-${_date.year}",
-                              "item":item,
+                              "id":id2,
                             };
                             await database
                                 .addingData(city, item, addingDataToMap,
-                                    "${_date.day}-${_date.month}-${_date.year}")
+                                    id,id2)
                                 .then((value) {
                               setState(() {
                                 _loading = false;

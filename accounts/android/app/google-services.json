@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "638605960534",
+    "firebase_url": "https://accounts-395de.firebaseio.com",
+    "project_id": "accounts-395de",
+    "storage_bucket": "accounts-395de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638605960534:android:391e531435d5be72b2e2f7",
+        "android_client_info": {
+          "package_name": "mdhv.com.accounts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638605960534-36157ugf42a1kggcu4ejmcva2m8f13lh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mdhv.com.accounts",
+            "certificate_hash": "e359049d82079ed130eec247feb2156d1319e787"
+          }
+        },
+        {
+          "client_id": "638605960534-ej4n8tr2n5359o8hqd6fgir1gp4fp9jl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7HTKuI23luS2VnpcqQQmpj_JN7PUKmI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638605960534-ej4n8tr2n5359o8hqd6fgir1gp4fp9jl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

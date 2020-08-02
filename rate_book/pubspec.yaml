@@ -24,6 +24,7 @@ dependencies:
   cloud_firestore:
   flutter_spinkit:
   charts_flutter:
+  random_string:
   flutter:
     sdk: flutter
 

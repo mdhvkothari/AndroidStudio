@@ -20,6 +20,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
   Database database = Database();
   int AmountCredited = 0;
 
+
   @override
   void initState() {
     database
@@ -31,7 +32,7 @@ class _particularSaleBillState extends State<particularSaleBill> {
     });
   }
 
-  left(int credited) {
+  int left(int credited) {
     AmountCredited = AmountCredited + credited;
     int leftAmount;
     leftAmount = int.parse(widget.billAmount) - AmountCredited;

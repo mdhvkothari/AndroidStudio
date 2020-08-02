@@ -1,27 +1,24 @@
+import 'package:accounts/Service/auth.dart';
+import 'package:accounts/warpper.dart';
 import 'package:flutter/material.dart';
-import 'package:accounts/screens/all_shops.dart';
+import 'package:provider/provider.dart';
 
-void main(){
-  runApp(
-      MyApp()
-  );
+import 'model/userModel.dart';
+
+void main() {
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "AnandGeneralStore",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.pink),
+        debugShowCheckedModeBanner: false,
+        home: Wrapper(),
       ),
-      home: AllShop(),
     );
   }
 }
